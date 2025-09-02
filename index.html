@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Laralink">
+  <!-- Favicon Icon -->
+  <!-- TODO: Ganti favicon ini dengan logo Cybersecurity Academy Anda -->
+  <link rel="icon" href="assets/img/favicon.png" />
+  <!-- Site Title -->
+  <title>Cybersecurity Academy - Belajar Keamanan Siber</title>
+  <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/plugins/slick.css">
+  <link rel="stylesheet" href="assets/css/plugins/animate.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="cs-dark">
+  <div class="cs-preloader cs-white_bg cs-center">
+    <div class="cs-preloader_in">
+      <!-- TODO: Ganti logo ini dengan logo Cybersecurity Academy Anda -->
+      <img src="assets/img/logo_mini.svg" alt="Logo">
+    </div>
+  </div>
+  <!-- Start Header Section -->
+  <header class="cs-site_header cs-style1 cs-sticky-header cs-primary_color text-uppercase cs-white_bg">
+    <div class="cs-main_header">
+      <div class="container">
+        <div class="cs-main_header_in">
+          <div class="cs-main_header_left">
+            <a class="cs-site_branding cs-accent_color" href="index.html">
+              <!-- TODO: Ganti logo ini dengan logo Cybersecurity Academy Anda -->
+              <img src="assets-baru/logo-cybersecurity.svg" alt="Logo" class="cs-hide_dark">
+              <img src="assets-baru/logo-cybersecurity-white.svg" alt="Logo" class="cs-hide_white">
+            </a>
+          </div>
+          <div class="cs-main_header_center">
+            <div class="cs-nav">
+              <ul class="cs-nav_list">
+                <li><a href="#home" class="cs-smoth_scroll">Home</a></li>
+                <li><a href="#about" class="cs-smoth_scroll">Tentang Kami</a></li>
+                <li><a href="#courses" class="cs-smoth_scroll">Kursus</a></li>
+                <li><a href="#team" class="cs-smoth_scroll">Instruktur</a></li>
+                <li><a href="#faq" class="cs-smoth_scroll">FAQ</a></li>
+                <li><a href="blog.html">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="cs-main_header_right">
+            <div class="cs-toolbox">
+              <span class="cs-icon_btn cs-mode_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64" class="cs-hide_dark"><path fill="currentColor" d="M43.139 2a29.885 29.885 0 0 1 5.121 16.756c0 16.701-13.686 30.24-30.57 30.24a30.656 30.656 0 0 1-15.689-4.285C7.209 54.963 17.93 62 30.318 62C47.816 62 62 47.969 62 30.66C62 17.867 54.246 6.871 43.139 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 26 26" fill="none" class="cs-hide_white">
+                  <path d="M13 19.5C14.7239 19.5 16.3772 18.8152 17.5962 17.5962C18.8152 16.3772 19.5 14.7239 19.5 13C19.5 11.2761 18.8152 9.62279 17.5962 8.40381C16.3772 7.18482 14.7239 6.5 13 6.5C11.2761 6.5 9.62279 7.18482 8.40381 8.40381C7.18482 9.62279 6.5 11.2761 6.5 13C6.5 14.7239 7.18482 16.3772 8.40381 17.5962C9.62279 18.8152 11.2761 19.5 13 19.5ZM13 0C13.2155 0 13.4222 0.0856024 13.5745 0.237976C13.7269 0.390349 13.8125 0.597012 13.8125 0.8125V4.0625C13.8125 4.27799 13.7269 4.48465 13.5745 4.63702C13.4222 4.7894 13.2155 4.875 13 4.875C12.7845 4.875 12.5778 4.7894 12.4255 4.63702C12.2731 4.48465 12.1875 4.27799 12.1875 4.0625V0.8125C12.1875 0.597012 12.2731 0.390349 12.4255 0.237976C12.5778 0.0856024 12.7845 0 13 0V0ZM13 21.125C13.2155 21.125 13.4222 21.2106 13.5745 21.363C13.7269 21.5153 13.8125 21.722 13.8125 21.9375V25.1875C13.8125 25.403 13.7269 25.6097 13.5745 25.762C13.4222 25.9144 13.2155 26 13 26C12.7845 26 12.5778 25.9144 12.4255 25.762C12.2731 25.6097 12.1875 25.403 12.1875 25.1875V21.9375C12.1875 21.722 12.2731 21.5153 12.4255 21.363C12.5778 21.2106 12.7845 21.125 13 21.125ZM26 13C26 13.2155 25.9144 13.4222 25.762 13.5745C25.6097 13.7269 25.403 13.8125 25.1875 13.8125H21.9375C21.722 13.8125 21.5153 13.7269 21.363 13.5745C21.2106 13.4222 21.125 13.2155 21.125 13C21.125 12.7845 21.2106 12.5778 21.363 12.4255C21.5153 12.2731 21.722 12.1875 21.9375 12.1875H25.1875C25.403 12.1875 25.6097 12.2731 25.762 12.4255C25.9144 12.5778 26 12.7845 26 13ZM4.875 13C4.875 13.2155 4.7894 13.4222 4.63702 13.5745C4.48465 13.7269 4.27799 13.8125 4.0625 13.8125H0.8125C0.597012 13.8125 0.390349 13.7269 0.237976 13.5745C0.0856024 13.4222 0 13.2155 0 13C0 12.7845 0.0856024 12.5778 0.237976 12.4255C0.390349 12.2731 0.597012 12.1875 0.8125 12.1875H4.0625C4.27799 12.1875 4.48465 12.2731 4.63702 12.4255C4.7894 12.5778 4.875 12.7845 4.875 13ZM22.1926 3.80737C22.3449 3.95974 22.4305 4.16637 22.4305 4.38181C22.4305 4.59726 22.3449 4.80388 22.1926 4.95625L19.8949 7.25563C19.8193 7.33106 19.7297 7.39088 19.631 7.43166C19.5323 7.47245 19.4266 7.4934 19.3199 7.49333C19.1043 7.49317 18.8975 7.40738 18.7452 7.25481C18.6698 7.17927 18.6099 7.08961 18.5691 6.99095C18.5284 6.89229 18.5074 6.78656 18.5075 6.6798C18.5076 6.46419 18.5934 6.25748 18.746 6.10512L21.0437 3.80737C21.1961 3.65505 21.4027 3.56949 21.6182 3.56949C21.8336 3.56949 22.0403 3.65505 22.1926 3.80737ZM7.254 18.746C7.40632 18.8984 7.49189 19.105 7.49189 19.3204C7.49189 19.5359 7.40632 19.7425 7.254 19.8949L4.95625 22.1926C4.80301 22.3406 4.59777 22.4225 4.38474 22.4207C4.1717 22.4188 3.96792 22.3334 3.81727 22.1827C3.66663 22.0321 3.58118 21.8283 3.57933 21.6153C3.57748 21.4022 3.65937 21.197 3.80737 21.0437L6.10512 18.746C6.25749 18.5937 6.46412 18.5081 6.67956 18.5081C6.89501 18.5081 7.10163 18.5937 7.254 18.746ZM22.1926 22.1926C22.0403 22.3449 21.8336 22.4305 21.6182 22.4305C21.4027 22.4305 21.1961 22.3449 21.0437 22.1926L18.746 19.8949C18.598 19.7416 18.5161 19.5364 18.518 19.3234C18.5198 19.1103 18.6053 18.9065 18.7559 18.7559C18.9065 18.6053 19.1103 18.5198 19.3234 18.518C19.5364 18.5161 19.7416 18.598 19.8949 18.746L22.1926 21.0437C22.3449 21.1961 22.4305 21.4027 22.4305 21.6182C22.4305 21.8336 22.3449 22.0403 22.1926 22.1926ZM7.254 7.25563C7.10163 7.40795 6.89501 7.49351 6.67956 7.49351C6.46412 7.49351 6.25749 7.40795 6.10512 7.25563L3.80737 4.95625C3.72977 4.8813 3.66788 4.79164 3.62529 4.69252C3.58271 4.59339 3.5603 4.48677 3.55936 4.37889C3.55842 4.27101 3.57898 4.16402 3.61983 4.06416C3.66069 3.96431 3.72102 3.87359 3.7973 3.7973C3.87359 3.72102 3.96431 3.66069 4.06416 3.61983C4.16402 3.57898 4.27101 3.55842 4.37889 3.55936C4.48677 3.5603 4.59339 3.58271 4.69252 3.62529C4.79164 3.66788 4.8813 3.72977 4.95625 3.80737L7.254 6.10512C7.32967 6.1806 7.3897 6.27026 7.43066 6.36897C7.47162 6.46768 7.4927 6.5735 7.4927 6.68038C7.4927 6.78725 7.47162 6.89307 7.43066 6.99178C7.3897 7.09049 7.32967 7.18015 7.254 7.25563Z" fill="white"/>
+                </svg>
+              </span>
+              <span class="cs-btn cs-btn_filed cs-accent_btn cs-modal_btn" data-modal="login">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 1 0 8a4 4 0 0 1 0-8zm0 10c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/></svg>
+                <span>Login</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- End Header Section -->
+  <div class="cs-height_80 cs-height_lg_80"></div>
+  
+  <!-- Start Hero -->
+  <section class="cs-hero cs-style1 cs-bg" data-src="assets-baru/hero_bg_cyber.jpeg" id="home">
+    <div class="cs-dark_overlay"></div>
+    <div class="container">
+      <div class="cs-hero_text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.35s">
+        <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">Jadi Ahli Keamanan <br>Siber Berikutnya</h1>
+        <h2 class="cs-hero_secondary_title cs-font_22 cs-font_18_sm text-uppercase">1200+ Siswa Telah Bergabung</h2>
+        <div class="cs-btn_group">
+          <a href="#courses" class="cs-btn cs-btn_filed cs-accent_btn cs-smoth_scroll"><span>Lihat Kursus</span></a>
+          <a href="#about" class="cs-btn cs-color1 cs-smoth_scroll"><span>Tentang Kami</span></a>
+        </div>
+        <h3 class="cs-hero_subtitle cs-font_20 cs-font_16_sm cs-body_line_height">Belajar dari para ahli industri. <br>
+        Dapatkan <span class="cs-accent_color">sertifikasi</span> dan siapkan karir Anda.</h3>
+      </div>
+      <div class="cs-hero_img wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+        <!-- TODO: Ganti gambar hero ini dengan gambar bertema cybersecurity -->
+        <img src="assets-baru/hero_img_cyber.svg" alt="Hero Image">
+      </div>
+    </div>
+  </section>
+  <!-- End Hero -->
+  <!-- Start About -->
+  <section id="about">
+    <div class="cs-height_100 cs-height_lg_70"></div>
+    <div class="container">
+      <div class="row align-items-center flex-column-reverse-lg">
+        <div class="col-lg-6 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="cs-height_0 cs-height_lg_40"></div>
+          <div class="cs-right_space_40">
+            <div class="cs-seciton_heading cs-style1 text-uppercase">
+              <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Visi & Misi Kami</h3>
+              <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Tentang Cybersecurity Academy</h2>
+            </div>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <p>
+              Cybersecurity Academy adalah platform pembelajaran online terdepan yang didedikasikan untuk mencetak talenta-talenta baru di bidang keamanan siber. Kami percaya bahwa setiap orang berhak mendapatkan akses ke pendidikan berkualitas untuk melindungi dunia digital yang terus berkembang.
+            </p>
+            <p>
+              Misi kami adalah menyediakan kurikulum yang relevan dengan industri, diajarkan oleh para praktisi berpengalaman, dan memberikan pengalaman belajar yang praktis dan mendalam. Kami berkomitmen untuk membantu Anda mencapai tujuan karir di dunia cybersecurity.
+            </p>
+            <div class="cs-height_25 cs-height_lg_15"></div>
+            <div class="cs-btn_group">
+              <a href="#" class="cs-btn cs-btn_filed cs-primary_btn"><span>Hubungi Kami</span></a>
+              <a href="#courses" class="cs-btn cs-btn_filed cs-primary_btn cs-smoth_scroll"><span>Pilih Kursus</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.4s">
+          <!-- TODO: Ganti gambar ini dengan gambar ilustrasi tentang cybersecurity academy -->
+          <img src="assets-baru/about_img_cyber.svg" alt="Tentang Kami">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End About -->
+  <div class="cs-height_100 cs-height_lg_70"></div>
+  <!-- Start Services/Courses -->
+  <section id="courses">
+    <div class="container">
+      <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+        <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Area Pembelajaran</h3>
+        <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kursus Populer Kami</h2>
+      </div>
+      <div class="cs-height_50 cs-height_lg_30"></div>
+      <div class="row">
+        <div class="col-lg-4 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="cs-iconbox cs-style1 cs-white_bg">
+            <h4 class="cs-iconbox_icon cs-font_30 cs-font_24_sm cs-m0">01.</h4>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <h3 class="cs-iconbox_title cs-font_30 cs-font_24_sm cs-m0">Ethical Hacking</h3>
+            <div class="cs-height_10 cs-height_lg_10"></div>
+            <div class="cs-iconbox_subtitle">Pelajari teknik peretasan yang etis untuk menemukan dan memperbaiki kerentanan keamanan dalam sistem.</div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-lg-4 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+          <div class="cs-iconbox cs-style1 cs-white_bg">
+            <h4 class="cs-iconbox_icon cs-font_30 cs-font_24_sm cs-m0">02.</h4>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <h3 class="cs-iconbox_title cs-font_30 cs-font_24_sm cs-m0">Keamanan Jaringan</h3>
+            <div class="cs-height_10 cs-height_lg_10"></div>
+            <div class="cs-iconbox_subtitle">Kuasai cara mengamankan infrastruktur jaringan dari ancaman siber, mulai dari firewall hingga deteksi intrusi.</div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-lg-4 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
+          <div class="cs-iconbox cs-style1 cs-white_bg">
+            <h4 class="cs-iconbox_icon cs-font_30 cs-font_24_sm cs-m0">03.</h4>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <h3 class="cs-iconbox_title cs-font_30 cs-font_24_sm cs-m0">Analisis Malware</h3>
+            <div class="cs-height_10 cs-height_lg_10"></div>
+            <div class="cs-iconbox_subtitle">Dalam kursus ini, Anda akan belajar membongkar dan menganalisis perangkat lunak berbahaya untuk memahami cara kerjanya.</div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Services/Courses -->
+  <div class="cs-height_70 cs-height_lg_45"></div>
+  <!-- Start Tending Item -->
+  <div class="cs-slider cs-style1 cs-gap-24 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.3s">
+    <!-- TODO: Ganti gambar-gambar ini dengan ikon atau logo yang mewakili setiap kursus -->
+    <div class="cs-slider_container" data-autoplay="1000" data-loop="1" data-speed="600" data-center="1" data-fade-slide="0"  data-slides-per-view="responsive" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="4" data-add-slides="6">
+      <div class="cs-slider_wrapper">
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course1.svg" alt="Kursus">
+          </div>
+        </div>
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course2.svg" alt="Kursus">
+          </div>
+        </div>
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course3.svg" alt="Kursus">
+          </div>
+        </div>
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course4.svg" alt="Kursus">
+          </div>
+        </div>
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course5.svg" alt="Kursus">
+          </div>
+        </div>
+        <div class="cs-slide">
+          <div class="cs-image_box cs-style1">
+            <img src="assets-baru/course6.svg" alt="Kursus">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Tending Item -->
+  <div class="cs-height_90 cs-height_lg_65"></div>
+  <!-- Start Fun Fact -->
+  <div class="container wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.35s">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <div class="cs-funfact cs-style1">
+          <div class="cs-font_60 cs-font_36_sm cs-m0 cs-primary_font cs-primary_color cs-heading_line_height cs-bold"><span data-count-to="35" class="odometer"></span>+</div>
+          <p class="cs-m0 cs-font_30 cs-heading_line_height cs-font_22_sm">Total Kursus</p>
+        </div>
+        <div class="cs-height_25 cs-height_lg_25"></div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="cs-funfact cs-style1">
+          <div class="cs-font_60 cs-font_36_sm cs-m0 cs-primary_font cs-primary_color cs-heading_line_height cs-bold"><span data-count-to="1200" class="odometer"></span>+</div>
+          <p class="cs-m0 cs-font_30 cs-heading_line_height cs-font_22_sm">Siswa Terdaftar</p>
+        </div>
+        <div class="cs-height_25 cs-height_lg_25"></div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="cs-funfact cs-style1">
+          <div class="cs-font_60 cs-font_36_sm cs-m0 cs-primary_font cs-primary_color cs-heading_line_height cs-bold"><span data-count-to="15" class="odometer"></span>+</div>
+          <p class="cs-m0 cs-font_30 cs-heading_line_height cs-font_22_sm">Instruktur Ahli</p>
+        </div>
+        <div class="cs-height_25 cs-height_lg_25"></div>
+      </div>
+      <div class="col-lg-3 col-6">
+        <div class="cs-funfact cs-style1">
+          <div class="cs-font_60 cs-font_36_sm cs-m0 cs-primary_font cs-primary_color cs-heading_line_height cs-bold"><span data-count-to="98" class="odometer"></span>%</div>
+          <p class="cs-m0 cs-font_30 cs-heading_line_height cs-font_22_sm">Kepuasan Siswa</p>
+        </div>
+        <div class="cs-height_25 cs-height_lg_25"></div>
+      </div>
+    </div>
+  </div>
+  <!-- End Fun Fact -->
+  <div class="cs-height_65 cs-height_lg_35"></div>
+  <!-- Start How to Start Seciton -->
+  <section>
+    <div class="container">
+      <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+        <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Langkah Mudah</h3>
+        <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Cara Memulai Belajar</h2>
+      </div>
+      <div class="cs-height_50 cs-height_lg_30"></div>
+      <div class="row wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+        <div class="col-xl-3 col-md-6">
+          <div class="cs-card cs-style1">
+            <div class="cs-card_in">
+              <h3 class="cs-card_title cs-font_30 cs-font_24_sm cs-m0">Buat Akun Anda</h3>
+              <div class="cs-card_arrow">窓</div>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="cs-card cs-style1">
+            <div class="cs-card_bg" data-src="assets/img/card_bg_white.svg"></div>
+            <div class="cs-card_in">
+              <h3 class="cs-card_title cs-font_30 cs-font_24_sm cs-m0">Pilih Kursus Anda</h3>
+              <div class="cs-card_arrow">痩</div>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="cs-card cs-style1">
+            <div class="cs-card_in">
+              <h3 class="cs-card_title cs-font_30 cs-font_24_sm cs-m0">Mulai Belajar</h3>
+              <div class="cs-card_arrow">総</div>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="cs-card cs-style1">
+            <div class="cs-card_in">
+              <h3 class="cs-card_title cs-font_30 cs-font_24_sm cs-m0">Dapatkan Sertifikat</h3>
+              <div class="cs-card_arrow">凾</div>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End How to Start Seciton -->
+  <!-- Start Team -->
+  <section id="team">
+    <div class="cs-height_70 cs-height_lg_40"></div>
+    <div class="container">
+      <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+        <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Tim Kami</h3>
+        <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Temui Para Instruktur</h2>
+      </div>
+      <div class="cs-height_50 cs-height_lg_30"></div>
+      <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+        <div class="col-lg-3 col-sm-6">
+          <div class="cs-team cs-style1 text-center cs-white_bg">
+            <div class="cs-height_30 cs-height_lg_30"></div>
+            <div class="cs-member_thumb">
+              <!-- TODO: Ganti gambar dengan foto instruktur -->
+              <img src="assets-baru/instruktur1.svg" alt="Member">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="cs-member_info">
+              <h2 class="cs-font_22 cs-font_16_sm cs-m0">Ahmad Zulkifli</h2>
+              <div class="cs-height_5 cs-height_lg_5"></div>
+              <p class="cs-m0">Penetration Tester</p>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="cs-team cs-style1 text-center cs-white_bg">
+            <div class="cs-height_30 cs-height_lg_30"></div>
+            <div class="cs-member_thumb">
+              <!-- TODO: Ganti gambar dengan foto instruktur -->
+              <img src="assets-baru/instruktur2.svg" alt="Member">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="cs-member_info">
+              <h2 class="cs-font_22 cs-font_16_sm cs-m0">Bunga Citra</h2>
+              <div class="cs-height_5 cs-height_lg_5"></div>
+              <p class="cs-m0">Security Analyst</p>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="cs-team cs-style1 text-center cs-white_bg">
+            <div class="cs-height_30 cs-height_lg_30"></div>
+            <div class="cs-member_thumb">
+              <!-- TODO: Ganti gambar dengan foto instruktur -->
+              <img src="assets-baru/instruktur3.svg" alt="Member">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="cs-member_info">
+              <h2 class="cs-font_22 cs-font_16_sm cs-m0">Rizky Pratama</h2>
+              <div class="cs-height_5 cs-height_lg_5"></div>
+              <p class="cs-m0">Forensic Investigator</p>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="cs-team cs-style1 text-center cs-white_bg">
+            <div class="cs-height_30 cs-height_lg_30"></div>
+            <div class="cs-member_thumb">
+              <!-- TODO: Ganti gambar dengan foto instruktur -->
+              <img src="assets-baru/instruktur4.svg" alt="Member">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="cs-member_info">
+              <h2 class="cs-font_22 cs-font_16_sm cs-m0">Siti Nurhaliza</h2>
+              <div class="cs-height_5 cs-height_lg_5"></div>
+              <p class="cs-m0">Network Security Engineer</p>
+            </div>
+          </div>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Team -->
+  <div class="cs-height_70 cs-height_lg_40"></div>
+  <!-- Start FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+        <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">FAQ</h3>
+        <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Pertanyaan yang Sering Diajukan</h2>
+      </div>
+      <div class="cs-height_50 cs-height_lg_30"></div>
+      <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+        <div class="col-lg-12">
+          <div class="cs-accordian">
+            <div class="cs-accordian_item cs-white_bg active">
+              <div class="cs-accordian_head">
+                <h3 class="cs-accordian_title cs-font_22 cs-font_18_sm cs-m0">Siapa saja yang bisa mengikuti kursus ini?</h3>
+                <span class="cs-accordian_toggle"></span>
+              </div>
+              <div class="cs-accordian_body">
+                Kursus kami dirancang untuk semua tingkatan, mulai dari pemula yang tidak memiliki latar belakang IT hingga para profesional yang ingin meningkatkan keahlian mereka. Setiap kursus memiliki prasyarat yang jelas.
+              </div>
+            </div>
+            <div class="cs-accordian_item cs-white_bg">
+              <div class="cs-accordian_head">
+                <h3 class="cs-accordian_title cs-font_22 cs-font_18_sm cs-m0">Apakah saya akan mendapatkan sertifikat setelah selesai?</h3>
+                <span class="cs-accordian_toggle"></span>
+              </div>
+              <div class="cs-accordian_body">
+                Ya, setelah berhasil menyelesaikan semua materi kursus dan ujian akhir, Anda akan menerima sertifikat kelulusan yang diakui industri dari Cybersecurity Academy.
+              </div>
+            </div>
+            <div class="cs-accordian_item cs-white_bg">
+              <div class="cs-accordian_head">
+                <h3 class="cs-accordian_title cs-font_22 cs-font_18_sm cs-m0">Bagaimana format pembelajarannya?</h3>
+                <span class="cs-accordian_toggle"></span>
+              </div>
+              <div class="cs-accordian_body">
+                Pembelajaran dilakukan secara online melalui video, modul bacaan, kuis, dan lab praktek virtual. Anda bisa belajar kapan saja dan di mana saja sesuai dengan kecepatan Anda sendiri.
+              </div>
+            </div>
+            <div class="cs-accordian_item cs-white_bg">
+              <div class="cs-accordian_head">
+                <h3 class="cs-accordian_title cs-font_22 cs-font_18_sm cs-m0">Apakah ada bantuan jika saya mengalami kesulitan?</h3>
+                <span class="cs-accordian_toggle"></span>
+              </div>
+              <div class="cs-accordian_body">
+                Tentu saja. Kami memiliki forum diskusi di setiap kursus di mana Anda dapat bertanya kepada instruktur dan berdiskusi dengan siswa lain. Tim support kami juga siap membantu Anda.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End FAQ -->
+  <!-- Start Footer -->
+  <div class="cs-height_100 cs-height_lg_70"></div>
+  <footer class="cs-footer cs-style1">
+    <div class="container">
+      <div class="cs-footer_container">
+        <div class="cs-footer_left">
+          <div class="cs-footer_logo_wrap">
+            <a class="cs-footer_logo" href="#">
+              <img src="assets-baru/logo-cybersecurity-white.svg" alt="Logo">
+            </a>
+          </div>
+          <div class="cs-footer_text">Jadilah bagian dari komunitas kami dan tingkatkan keahlian Anda dalam dunia keamanan siber.</div>
+        </div>
+        <div class="cs-footer_right">
+          <div class="cs-footer_nav">
+            <h3 class="cs-footer_nav_title">Quick Link</h3>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Tentang Kami</a></li>
+              <li><a href="#">Kursus</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+          <div class="cs-footer_nav">
+            <h3 class="cs-footer_nav_title">Community</h3>
+            <ul>
+              <li><a href="#">Discord</a></li>
+              <li><a href="#">Telegram</a></li>
+              <li><a href="#">Forum</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-height_40 cs-height_lg_30"></div>
+    <div class="cs-copyright text-center">
+      <div class="container">Copyright © 2025. All Rights Reserved by <a href="#" class="cs-primary_color cs-accent_color_hover">cybersecurityacademy.my.id</a></div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Start Login Modal -->
+  <div class="cs-modal" id="login">
+    <div class="cs-modal_container">
+      <div class="cs-modal_close cs-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></path></svg>
+      </div>
+      <div class="cs-modal_body">
+        <div class="cs-wallet_secton">
+          <h2 class="cs-font_30 cs-font_24_sm text-center">Login ke Akun Anda</h2>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+          <form class="cs-form">
+            <label class="cs-form_label">Email</label>
+            <div class="cs-form_field_wrap">
+              <input type="email" class="cs-form_field" placeholder="nama@email.com">
+            </div>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <label class="cs-form_label">Password</label>
+            <div class="cs-form_field_wrap">
+              <input type="password" class="cs-form_field" placeholder="********">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <button class="cs-btn cs-btn_filed cs-accent_btn text-center text-uppercase w-100"><span>Login</span></button>
+          </form>
+          <div class="cs-height_15 cs-height_lg_15"></div>
+          <p class="cs-m0 text-center">Belum punya akun? <a href="#" class="cs-accent_color">Daftar sekarang</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Modal -->
+
+  <!-- Script -->
+  <script src="assets/js/plugins/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/plugins/jquery.slick.min.js"></script>
+  <script src="assets/js/plugins/jquery.counter.min.js"></script>
+  <script src="assets/js/plugins/wow.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
