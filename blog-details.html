@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Laralink">
+  <!-- Favicon Icon -->
+  <!-- TODO: Ganti favicon ini dengan logo Cybersecurity Academy Anda -->
+  <link rel="icon" href="assets/img/favicon.png" />
+  <!-- Site Title -->
+  <title>Detail Blog - Cybersecurity Academy</title>
+  <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/plugins/slick.css">
+  <link rel="stylesheet" href="assets/css/plugins/animate.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="cs-dark">
+  <div class="cs-preloader cs-white_bg cs-center">
+    <div class="cs-preloader_in">
+      <!-- TODO: Ganti logo ini dengan logo Cybersecurity Academy Anda -->
+      <img src="assets/img/logo_mini.svg" alt="Logo">
+    </div>
+  </div>
+  <!-- Start Header Section -->
+  <header class="cs-site_header cs-style1 cs-sticky-header cs-primary_color text-uppercase cs-white_bg">
+    <div class="cs-main_header">
+      <div class="container">
+        <div class="cs-main_header_in">
+          <div class="cs-main_header_left">
+            <a class="cs-site_branding cs-accent_color" href="index.html">
+              <!-- TODO: Ganti logo ini dengan logo Cybersecurity Academy Anda -->
+              <img src="assets-baru/logo-cybersecurity.svg" alt="Logo" class="cs-hide_dark">
+              <img src="assets-baru/logo-cybersecurity-white.svg" alt="Logo" class="cs-hide_white">
+            </a>
+          </div>
+          <div class="cs-main_header_center">
+            <div class="cs-nav">
+              <ul class="cs-nav_list">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">Tentang Kami</a></li>
+                <li><a href="index.html#courses">Kursus</a></li>
+                <li><a href="index.html#team">Instruktur</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li class="current-menu-item"><a href="blog.html">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="cs-main_header_right">
+            <div class="cs-toolbox">
+              <span class="cs-icon_btn cs-mode_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64" class="cs-hide_dark"><path fill="currentColor" d="M43.139 2a29.885 29.885 0 0 1 5.121 16.756c0 16.701-13.686 30.24-30.57 30.24a30.656 30.656 0 0 1-15.689-4.285C7.209 54.963 17.93 62 30.318 62C47.816 62 62 47.969 62 30.66C62 17.867 54.246 6.871 43.139 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 26 26" fill="none" class="cs-hide_white">
+                  <path d="M13 19.5C14.7239 19.5 16.3772 18.8152 17.5962 17.5962C18.8152 16.3772 19.5 14.7239 19.5 13C19.5 11.2761 18.8152 9.62279 17.5962 8.40381C16.3772 7.18482 14.7239 6.5 13 6.5C11.2761 6.5 9.62279 7.18482 8.40381 8.40381C7.18482 9.62279 6.5 11.2761 6.5 13C6.5 14.7239 7.18482 16.3772 8.40381 17.5962C9.62279 18.8152 11.2761 19.5 13 19.5ZM13 0C13.2155 0 13.4222 0.0856024 13.5745 0.237976C13.7269 0.390349 13.8125 0.597012 13.8125 0.8125V4.0625C13.8125 4.27799 13.7269 4.48465 13.5745 4.63702C13.4222 4.7894 13.2155 4.875 13 4.875C12.7845 4.875 12.5778 4.7894 12.4255 4.63702C12.2731 4.48465 12.1875 4.27799 12.1875 4.0625V0.8125C12.1875 0.597012 12.2731 0.390349 12.4255 0.237976C12.5778 0.0856024 12.7845 0 13 0V0ZM13 21.125C13.2155 21.125 13.4222 21.2106 13.5745 21.363C13.7269 21.5153 13.8125 21.722 13.8125 21.9375V25.1875C13.8125 25.403 13.7269 25.6097 13.5745 25.762C13.4222 25.9144 13.2155 26 13 26C12.7845 26 12.5778 25.9144 12.4255 25.762C12.2731 25.6097 12.1875 25.403 12.1875 25.1875V21.9375C12.1875 21.722 12.2731 21.5153 12.4255 21.363C12.5778 21.2106 12.7845 21.125 13 21.125ZM26 13C26 13.2155 25.9144 13.4222 25.762 13.5745C25.6097 13.7269 25.403 13.8125 25.1875 13.8125H21.9375C21.722 13.8125 21.5153 13.7269 21.363 13.5745C21.2106 13.4222 21.125 13.2155 21.125 13C21.125 12.7845 21.2106 12.5778 21.363 12.4255C21.5153 12.2731 21.722 12.1875 21.9375 12.1875H25.1875C25.403 12.1875 25.6097 12.2731 25.762 12.4255C25.9144 12.5778 26 12.7845 26 13ZM4.875 13C4.875 13.2155 4.7894 13.4222 4.63702 13.5745C4.48465 13.7269 4.27799 13.8125 4.0625 13.8125H0.8125C0.597012 13.8125 0.390349 13.7269 0.237976 13.5745C0.0856024 13.4222 0 13.2155 0 13C0 12.7845 0.0856024 12.5778 0.237976 12.4255C0.390349 12.2731 0.597012 12.1875 0.8125 12.1875H4.0625C4.27799 12.1875 4.48465 12.2731 4.63702 12.4255C4.7894 12.5778 4.875 12.7845 4.875 13ZM22.1926 3.80737C22.3449 3.95974 22.4305 4.16637 22.4305 4.38181C22.4305 4.59726 22.3449 4.80388 22.1926 4.95625L19.8949 7.25563C19.8193 7.33106 19.7297 7.39088 19.631 7.43166C19.5323 7.47245 19.4266 7.4934 19.3199 7.49333C19.1043 7.49317 18.8975 7.40738 18.7452 7.25481C18.6698 7.17927 18.6099 7.08961 18.5691 6.99095C18.5284 6.89229 18.5074 6.78656 18.5075 6.6798C18.5076 6.46419 18.5934 6.25748 18.746 6.10512L21.0437 3.80737C21.1961 3.65505 21.4027 3.56949 21.6182 3.56949C21.8336 3.56949 22.0403 3.65505 22.1926 3.80737ZM7.254 18.746C7.40632 18.8984 7.49189 19.105 7.49189 19.3204C7.49189 19.5359 7.40632 19.7425 7.254 19.8949L4.95625 22.1926C4.80301 22.3406 4.59777 22.4225 4.38474 22.4207C4.1717 22.4188 3.96792 22.3334 3.81727 22.1827C3.66663 22.0321 3.58118 21.8283 3.57933 21.6153C3.57748 21.4022 3.65937 21.197 3.80737 21.0437L6.10512 18.746C6.25749 18.5937 6.46412 18.5081 6.67956 18.5081C6.89501 18.5081 7.10163 18.5937 7.254 18.746ZM22.1926 22.1926C22.0403 22.3449 21.8336 22.4305 21.6182 22.4305C21.4027 22.4305 21.1961 22.3449 21.0437 22.1926L18.746 19.8949C18.598 19.7416 18.5161 19.5364 18.518 19.3234C18.5198 19.1103 18.6053 18.9065 18.7559 18.7559C18.9065 18.6053 19.1103 18.5198 19.3234 18.518C19.5364 18.5161 19.7416 18.598 19.8949 18.746L22.1926 21.0437C22.3449 21.1961 22.4305 21.4027 22.4305 21.6182C22.4305 21.8336 22.3449 22.0403 22.1926 22.1926ZM7.254 7.25563C7.10163 7.40795 6.89501 7.49351 6.67956 7.49351C6.46412 7.49351 6.25749 7.40795 6.10512 7.25563L3.80737 4.95625C3.72977 4.8813 3.66788 4.79164 3.62529 4.69252C3.58271 4.59339 3.5603 4.48677 3.55936 4.37889C3.55842 4.27101 3.57898 4.16402 3.61983 4.06416C3.66069 3.96431 3.72102 3.87359 3.7973 3.7973C3.87359 3.72102 3.96431 3.66069 4.06416 3.61983C4.16402 3.57898 4.27101 3.55842 4.37889 3.55936C4.48677 3.5603 4.59339 3.58271 4.69252 3.62529C4.79164 3.66788 4.8813 3.72977 4.95625 3.80737L7.254 6.10512C7.32967 6.1806 7.3897 6.27026 7.43066 6.36897C7.47162 6.46768 7.4927 6.5735 7.4927 6.68038C7.4927 6.78725 7.47162 6.89307 7.43066 6.99178C7.3897 7.09049 7.32967 7.18015 7.254 7.25563Z" fill="white"/>
+                </svg>
+              </span>
+              <span class="cs-btn cs-btn_filed cs-accent_btn cs-modal_btn" data-modal="login">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 1 0 8a4 4 0 0 1 0-8zm0 10c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/></svg>
+                <span>Login</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- End Header Section -->
+
+  <!-- Start Page Head -->
+  <section class="cs-page_head cs-bg" data-src="assets-baru/blog_hero_bg.jpeg">
+    <div class="cs-dark_overlay"></div>
+    <div class="container">
+      <div class="cs-page_head_text">
+        <h1 class="cs-page_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">Detail Artikel</h1>
+        <div class="cs-height_10 cs-height_lg_10"></div>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="blog.html">Blog</a></li>
+          <li class="breadcrumb-item active">Detail Artikel</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- End Page Head -->
+  <div class="cs-height_100 cs-height_lg_70"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="cs-post cs-style2">
+          <div class="cs-post_info">
+            <div class="cs-posted_by">
+              <a href="#" class="cs-post_catagory cs-accent_color cs-primary_font cs-medium">Tips Keamanan</a>
+              <span>01 Sep 2024</span>
+            </div>
+            <h2 class="cs-post_title">5 Ancaman Phishing Paling Umum dan Cara Menghindarinya</h2>
+            <div class="cs-post_author">
+              <!-- TODO: Ganti dengan foto penulis -->
+              <img src="assets-baru/author_1.jpg" alt="Author">
+              <span>Oleh <a href="#" class="cs-primary_color">Ahmad Zulkifli</a></span>
+            </div>
+          </div>
+          <div class="cs-post_thumb">
+            <!-- TODO: Ganti gambar dengan yang relevan -->
+            <img src="assets-baru/blog_cyber_1.jpeg" alt="Blog Image">
+          </div>
+          <div class="cs-post_text">
+            <p>Phishing adalah salah satu metode serangan siber yang paling tua namun tetap sangat efektif. Serangan ini mengandalkan manipulasi psikologis (social engineering) untuk menipu korban agar memberikan informasi sensitif seperti kata sandi, detail kartu kredit, atau data pribadi lainnya. Penyerang biasanya menyamar sebagai entitas tepercaya melalui email, pesan teks, atau media komunikasi lainnya.</p>
+            <p>Memahami berbagai jenis serangan phishing adalah langkah pertama untuk melindungi diri Anda. Berikut adalah lima jenis ancaman phishing yang paling umum dijumpai saat ini.</p>
+            <h2>1. Deceptive Phishing (Phishing Tipuan)</h2>
+            <p>Ini adalah bentuk phishing yang paling umum. Penyerang mengirim email massal yang tampaknya berasal dari perusahaan atau organisasi yang sah, seperti bank, layanan email, atau situs e-commerce. Email tersebut sering kali berisi pesan yang mendesak, misalnya meminta Anda untuk memverifikasi akun, mengklaim hadiah, atau memperbarui informasi pembayaran. Tujuannya adalah membuat Anda mengklik tautan ke situs web palsu yang dirancang untuk mencuri kredensial login Anda.</p>
+            <h2>2. Spear Phishing</h2>
+            <p>Berbeda dengan phishing tipuan yang bersifat massal, spear phishing adalah serangan yang sangat tertarget. Penyerang melakukan riset terlebih dahulu terhadap target spesifik (individu atau organisasi) dan membuat email yang sangat personal. Email ini mungkin menyebutkan nama Anda, jabatan, kolega, atau informasi spesifik lainnya untuk membangun kepercayaan. Karena sangat personal, tingkat keberhasilan spear phishing jauh lebih tinggi.</p>
+            <blockquote>Ancaman terbesar bagi keamanan siber bukanlah kode yang rumit, melainkan sifat manusia yang mudah percaya. Selalu waspada adalah kunci utama.</blockquote>
+            <h2>3. Smishing (SMS Phishing)</h2>
+            <p>Smishing adalah phishing yang dilakukan melalui pesan teks (SMS). Anda mungkin menerima pesan yang mengklaim berasal dari bank Anda, dengan tautan untuk memeriksa "transaksi mencurigakan", atau dari jasa pengiriman paket yang meminta Anda mengklik tautan untuk melacak kiriman. Tautan ini akan mengarahkan Anda ke situs berbahaya atau mengunduh malware ke ponsel Anda.</p>
+            <h2>4. Vishing (Voice Phishing)</h2>
+            <p>Vishing menggunakan komunikasi suara, biasanya melalui panggilan telepon. Penipu mungkin menyamar sebagai staf dukungan teknis, petugas bank, atau bahkan aparat penegak hukum. Mereka akan mencoba meyakinkan Anda untuk memberikan informasi pribadi atau mentransfer uang dengan menciptakan skenario yang mendesak atau menakutkan.</p>
+            <h2>5. Whaling</h2>
+            <p>Whaling adalah jenis spear phishing yang secara spesifik menargetkan individu tingkat tinggi dalam sebuah organisasi, seperti CEO, CFO, atau eksekutif lainnya (dikenal sebagai "ikan paus"). Tujuannya sering kali adalah untuk menipu target agar melakukan transfer dana dalam jumlah besar atau memberikan akses ke data perusahaan yang sangat rahasia.</p>
+            
+            <h2>Bagaimana Cara Menghindarinya?</h2>
+            <ul>
+              <li><strong>Verifikasi Pengirim:</strong> Selalu periksa alamat email pengirim. Jangan hanya melihat nama tampilannya.</li>
+              <li><strong>Jangan Klik Tautan Sembarangan:</strong> Arahkan kursor ke atas tautan (tanpa mengklik) untuk melihat URL tujuan sebenarnya. Jika mencurigakan, jangan diklik.</li>
+              <li><strong>Waspadai Pesan Mendesak:</strong> Penyerang sering menciptakan rasa urgensi agar Anda panik dan tidak berpikir jernih.</li>
+              <li><strong>Gunakan Otentikasi Dua Faktor (2FA):</strong> Aktifkan 2FA di semua akun penting Anda. Ini memberikan lapisan keamanan ekstra bahkan jika kata sandi Anda dicuri.</li>
+              <li><strong>Jangan Bagikan Informasi Sensitif:</strong> Ingat, lembaga yang sah tidak akan pernah meminta kata sandi atau kode PIN Anda melalui email atau telepon.</li>
+            </ul>
+          </div>
+          <div class="cs-post_meta">
+            <div class="cs-post_meta_left">
+              <div class="cs-post_tags">
+                <a href="#">phishing</a>
+                <a href="#">keamanan</a>
+                <a href="#">tips</a>
+              </div>
+            </div>
+            <div class="cs-social_btns cs-style1">
+              <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89c1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v7.028C18.343 21.128 22 16.991 22 12c0-5.523-4.477-10-10-10z"/></svg></a>
+              <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.67c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.5 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+              <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="cs-height_10 cs-height_lg_10"></div>
+        <div class="cs-author_card cs-white_bg">
+          <div class="cs-author_img">
+            <!-- TODO: Ganti dengan foto penulis -->
+            <img src="assets-baru/author_1.jpg" alt="">
+          </div>
+          <div class="cs-author_right">
+            <h3>Ahmad Zulkifli</h3>
+            <p>Ahmad adalah seorang Penetration Tester bersertifikat dengan pengalaman lebih dari 7 tahun dalam mengidentifikasi dan mengeksploitasi kerentanan keamanan. Ia bersemangat untuk berbagi pengetahuannya dan membantu orang lain memahami pola pikir seorang peretas etis.</p>
+          </div>
+        </div>
+        <div class="cs-height_40 cs-height_lg_40"></div>
+        <div class="cs-comment_area">
+          <h2 class="cs-comment_title">2 Komentar</h2>
+          <ul class="cs-comment_list">
+            <li>
+              <div class="cs-comment">
+                <div class="cs-comment_avater">
+                  <!-- TODO: Ganti dengan foto komentator -->
+                  <img src="assets-baru/comment_1.jpg" alt="">
+                </div>
+                <div class="cs-comment_right">
+                  <div class="cs-comment_info">
+                    <h3 class="cs-comment_author">Budi Santoso</h3>
+                    <div class="cs-comment_date">2 Sep 2024, 10:00</div>
+                  </div>
+                  <p>Artikel yang sangat bermanfaat! Saya hampir saja menjadi korban smishing minggu lalu. Untungnya saya ingat untuk tidak mengklik tautan dari nomor yang tidak dikenal. Terima kasih atas penjelasannya yang detail.</p>
+                  <a href="#" class="cs-comment_reply">Balas</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="cs-comment">
+                <div class="cs-comment_avater">
+                  <!-- TODO: Ganti dengan foto komentator -->
+                  <img src="assets-baru/comment_2.jpg" alt="">
+                </div>
+                <div class="cs-comment_right">
+                  <div class="cs-comment_info">
+                    <h3 class="cs-comment_author">Citra Lestari</h3>
+                    <div class="cs-comment_date">1 Sep 2024, 15:30</div>
+                  </div>
+                  <p>Penjelasan tentang spear phishing dan whaling benar-benar membuka mata. Ternyata serangan bisa sangat terpersonalisasi. Ini penting untuk diketahui, terutama bagi kami yang bekerja di perusahaan besar.</p>
+                  <a href="#" class="cs-comment_reply">Balas</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="cs-height_40 cs-height_lg_40"></div>
+        <div class="cs-comment_form">
+          <h2 class="cs-comment_title">Tinggalkan Komentar</h2>
+          <form action="#" class="row">
+            <div class="col-lg-6">
+              <input type="text" class="cs-form_field" placeholder="Nama Lengkap">
+              <div class="cs-height_20 cs-height_lg_20"></div>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="cs-form_field" placeholder="Email">
+              <div class="cs-height_20 cs-height_lg_20"></div>
+            </div>
+            <div class="col-lg-12">
+              <textarea cols="30" rows="5" class="cs-form_field" placeholder="Tulis komentar Anda..."></textarea>
+              <div class="cs-height_20 cs-height_lg_20"></div>
+            </div>
+            <div class="col-lg-12">
+              <button class="cs-btn cs-btn_filed cs-accent_btn text-uppercase">Kirim Komentar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cs-sidebar">
+          <div class="cs-widget cs-style1">
+            <h3 class="cs-widget_title">Cari</h3>
+            <form action="#" class="cs-search">
+              <input type="text" placeholder="Search...">
+              <button class="cs-search_btn"></button>
+            </form>
+          </div>
+          <div class="cs-widget cs-style1">
+            <h3 class="cs-widget_title">Kategori</h3>
+            <ul class="cs-widget_list">
+              <li><a href="#">Keamanan Jaringan</a></li>
+              <li><a href="#">Ethical Hacking</a></li>
+              <li><a href="#">Tips Keamanan</a></li>
+              <li><a href="#">Ancaman Siber</a></li>
+              <li><a href="#">Karir & Sertifikasi</a></li>
+              <li><a href="#">Berita Siber</a></li>
+            </ul>
+          </div>
+          <div class="cs-widget cs-style1">
+            <h3 class="cs-widget_title">Postingan Terbaru</h3>
+            <ul class="cs-recent_posts">
+              <li>
+                <div class="cs-recent_post">
+                  <a href="#" class="cs-recent_post_thumb">
+                    <!-- TODO: Ganti gambar dengan yang relevan -->
+                    <div class="cs-post_thumb_in cs-bg" data-src="assets-baru/recent_post_1.jpeg"></div>
+                  </a>
+                  <div class="cs-recent_post_info">
+                    <h4 class="cs-recent_post_title"><a href="#">5 Ancaman Phishing Paling Umum...</a></h4>
+                    <div class="cs-recent_post_date">01 Sep 2024</div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="cs-recent_post">
+                  <a href="#" class="cs-recent_post_thumb">
+                    <!-- TODO: Ganti gambar dengan yang relevan -->
+                    <div class="cs-post_thumb_in cs-bg" data-src="assets-baru/recent_post_2.jpeg"></div>
+                  </a>
+                  <div class="cs-recent_post_info">
+                    <h4 class="cs-recent_post_title"><a href="#">Mengapa Keamanan Jaringan Penting...</a></h4>
+                    <div class="cs-recent_post_date">28 Agu 2024</div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="cs-recent_post">
+                  <a href="#" class="cs-recent_post_thumb">
+                    <!-- TODO: Ganti gambar dengan yang relevan -->
+                    <div class="cs-post_thumb_in cs-bg" data-src="assets-baru/recent_post_3.jpeg"></div>
+                  </a>
+                  <div class="cs-recent_post_info">
+                    <h4 class="cs-recent_post_title"><a href="#">Pengantar Ethical Hacking...</a></h4>
+                    <div class="cs-recent_post_date">25 Agu 2024</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="cs-widget cs-style1">
+            <h3 class="cs-widget_title">Tags</h3>
+            <div class="cs-tag_btns">
+              <a href="#" class="cs-tag_btn">phishing</a>
+              <a href="#" class="cs-tag_btn">malware</a>
+              <a href="#" class="cs-tag_btn">network</a>
+              <a href="#" class="cs-tag_btn">password</a>
+              <a href="#" class="cs-tag_btn">karir</a>
+              <a href="#" class="cs-tag_btn">sertifikasi</a>
+              <a href="#" class="cs-tag_btn">keamanan</a>
+              <a href="#" class="cs-tag_btn">hacking</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-height_100 cs-height_lg_70"></div>
+  <!-- Start Footer -->
+  <footer class="cs-footer cs-style1">
+    <div class="container">
+      <div class="cs-footer_container">
+        <div class="cs-footer_left">
+          <div class="cs-footer_logo_wrap">
+            <a class="cs-footer_logo" href="#">
+              <img src="assets-baru/logo-cybersecurity-white.svg" alt="Logo">
+            </a>
+          </div>
+          <div class="cs-footer_text">Jadilah bagian dari komunitas kami dan tingkatkan keahlian Anda dalam dunia keamanan siber.</div>
+        </div>
+        <div class="cs-footer_right">
+          <div class="cs-footer_nav">
+            <h3 class="cs-footer_nav_title">Quick Link</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#about">Tentang Kami</a></li>
+              <li><a href="index.html#courses">Kursus</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="cs-footer_nav">
+            <h3 class="cs-footer_nav_title">Community</h3>
+            <ul>
+              <li><a href="#">Discord</a></li>
+              <li><a href="#">Telegram</a></li>
+              <li><a href="#">Forum</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-height_40 cs-height_lg_30"></div>
+    <div class="cs-copyright text-center">
+      <div class="container">Copyright © 2024. All Rights Reserved by <a href="#" class="cs-primary_color cs-accent_color_hover">cybersecurityacademy.my.id</a></div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Start Login Modal -->
+  <div class="cs-modal" id="login">
+    <div class="cs-modal_container">
+      <div class="cs-modal_close cs-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></path></svg>
+      </div>
+      <div class="cs-modal_body">
+        <div class="cs-wallet_secton">
+          <h2 class="cs-font_30 cs-font_24_sm text-center">Login ke Akun Anda</h2>
+          <div class="cs-height_25 cs-height_lg_25"></div>
+          <form class="cs-form">
+            <label class="cs-form_label">Email</label>
+            <div class="cs-form_field_wrap">
+              <input type="email" class="cs-form_field" placeholder="nama@email.com">
+            </div>
+            <div class="cs-height_20 cs-height_lg_20"></div>
+            <label class="cs-form_label">Password</label>
+            <div class="cs-form_field_wrap">
+              <input type="password" class="cs-form_field" placeholder="********">
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <button class="cs-btn cs-btn_filed cs-accent_btn text-center text-uppercase w-100"><span>Login</span></button>
+          </form>
+          <div class="cs-height_15 cs-height_lg_15"></div>
+          <p class="cs-m0 text-center">Belum punya akun? <a href="#" class="cs-accent_color">Daftar sekarang</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Modal -->
+
+  <!-- Script -->
+  <script src="assets/js/plugins/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/plugins/jquery.slick.min.js"></script>
+  <script src="assets/js/plugins/jquery.counter.min.js"></script>
+  <script src="assets/js/plugins/wow.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
