@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashAnalyzer - Hash Identifier & Cracker Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #06ffa5;
+            --danger-color: #ff006e;
+            --warning-color: #ffbe0b;
+            --dark-color: #0a0e27;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 30px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #a0a9d0;
+            margin-bottom: 30px;
+        }
+
+        .hash-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(26, 31, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--light-color);
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: monospace;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .result-container {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .result-details {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #a0a9d0;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-all;
+        }
+
+        .hash-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hash-type {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hash-type:hover {
+            background: rgba(67, 97, 238, 0.2);
+        }
+
+        .hash-type.active {
+            background: rgba(67, 97, 238, 0.3);
+            border: 1px solid var(--primary-color);
+        }
+
+        .hash-type-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .hash-type-length {
+            font-size: 14px;
+            color: #a0a9d0;
+        }
+
+        .cracking-methods {
+            margin-bottom: 20px;
+        }
+
+        .method-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .method-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .method-radio {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        .method-info {
+            flex: 1;
+        }
+
+        .method-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .method-description {
+            font-size: 14px;
+            color: #a0a9d0;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .cracking-result {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .cracking-result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cracking-result-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .cracking-result-status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: rgba(6, 255, 165, 0.2);
+            color: var(--success-color);
+        }
+
+        .status-failed {
+            background: rgba(255, 0, 110, 0.2);
+            color: var(--danger-color);
+        }
+
+        .cracking-result-content {
+            margin-bottom: 15px;
+        }
+
+        .cracked-password {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+
+        .info-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(26, 31, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .info-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .info-tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            display: none;
+        }
+
+        .info-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .info-text {
+            line-height: 1.6;
+            color: #a0a9d0;
+            margin-bottom: 15px;
+        }
+
+        .info-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .info-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-list li:before {
+            content: '\f058';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .hash-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .hash-comparison th,
+        .hash-comparison td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hash-comparison th {
+            background: rgba(67, 97, 238, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hash-comparison tr:last-child td {
+            border-bottom: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            padding: 20px 5%;
+            text-align: center;
+            background-color: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a9d0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a0a9d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .hash-types {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 250px;
+                height: 100vh;
+                background-color: rgba(10, 14, 39, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 20px 20px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                gap: 20px;
+            }
+            
+            nav li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 15px;
+            }
+            
+            nav li:last-child {
+                border-bottom: none;
+            }
+            
+            nav a {
+                display: block;
+                padding: 10px 0;
+                width: 100%;
+                font-size: 18px;
+            }
+            
+            body.menu-open {
+                overflow: hidden;
+            }
+            
+            body.menu-open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-fingerprint"></i>
+            <span>HashAnalyzer</span>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#identifier">Identifier</a></li>
+                <li><a href="#cracker">Cracker Simulator</a></li>
+                <li><a href="#info">Informasi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Hash Identifier & Cracker Simulator</h1>
+            <p>Identifikasi jenis hash dan simulasikan proses cracking untuk tujuan edukasi. Pelajari bagaimana hash bekerja dan cara melindungi data Anda.</p>
+        </section>
+
+        <section class="hash-container" id="identifier">
+            <h2 class="section-title">
+                <i class="fas fa-search"></i>
+                Hash Identifier
+            </h2>
+            
+            <div class="input-group">
+                <input type="text" class="input-field" id="hashInput" placeholder="Masukkan hash yang ingin diidentifikasi...">
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" id="identifyBtn">
+                    <i class="fas fa-fingerprint"></i>
+                    Identifikasi Hash
+                </button>
+                <button class="btn btn-secondary" id="hashTextBtn">
+                    <i class="fas fa-lock"></i>
+                    Hash Teks
+                </button>
+            </div>
+            
+            <div class="loading" id="identifyLoading">
+                <div class="spinner"></div>
+                <p>Menganalisis hash...</p>
+            </div>
+            
+            <div class="result-container" id="identifyResult">
+                <div class="result-header">
+                    <h3 class="result-title">Hasil Identifikasi</h3>
+                </div>
+                
+                <div class="result-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Jenis Hash:</span>
+                        <span class="detail-value" id="hashType">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Panjang Hash:</span>
+                        <span class="detail-value" id="hashLength">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Hash Diberikan:</span>
+                        <span class="detail-value" id="givenHash">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Teks Asli (jika diketahui):</span>
+                        <span class="detail-value" id="originalText">-</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hash-container" id="cracker">
+            <h2 class="section-title">
+                <i class="fas fa-unlock-alt"></i>
+                Cracker Simulator
+            </h2>
+            
+            <div class="input-group">
+                <input type="text" class="input-field" id="crackHashInput" placeholder="Masukkan hash yang ingin di-crack...">
+            </div>
+            
+            <div class="hash-types" id="hashTypes">
+                <div class="hash-type" data-type="md5">
+                    <div class="hash-type-name">MD5</div>
+                    <div class="hash-type-length">32 karakter</div>
+                </div>
+                <div class="hash-type" data-type="sha1">
+                    <div class="hash-type-name">SHA-1</div>
+                    <div class="hash-type-length">40 karakter</div>
+                </div>
+                <div class="hash-type" data-type="sha256">
+                    <div class="hash-type-name">SHA-256</div>
+                    <div class="hash-type-length">64 karakter</div>
+                </div>
+                <div class="hash-type" data-type="sha512">
+                    <div class="hash-type-name">SHA-512</div>
+                    <div class="hash-type-length">128 karakter</div>
+                </div>
+            </div>
+            
+            <div class="cracking-methods">
+                <div class="method-option" data-method="bruteforce">
+                    <input type="radio" name="method" class="method-radio" id="bruteforce" checked>
+                    <div class="method-info">
+                        <div class="method-name">Brute Force</div>
+                        <div class="method-description">Mencoba semua kombinasi karakter yang mungkin</div>
+                    </div>
+                </div>
+                <div class="method-option" data-method="dictionary">
+                    <input type="radio" name="method" class="method-radio" id="dictionary">
+                    <div class="method-info">
+                        <div class="method-name">Dictionary Attack</div>
+                        <div class="method-description">Menggunakan daftar kata-kata umum</div>
+                    </div>
+                </div>
+                <div class="method-option" data-method="rainbow">
+                    <input type="radio" name="method" class="method-radio" id="rainbow">
+                    <div class="method-info">
+                        <div class="method-name">Rainbow Table</div>
+                        <div class="method-description">Menggunakan tabel precomputed hash</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" id="startCrackBtn">
+                    <i class="fas fa-play"></i>
+                    Mulai Simulasi
+                </button>
+                <button class="btn btn-secondary" id="stopCrackBtn" disabled>
+                    <i class="fas fa-stop"></i>
+                    Hentikan
+                </button>
+            </div>
+            
+            <div class="loading" id="crackLoading">
+                <div class="spinner"></div>
+                <p>Simulasi cracking...</p>
+            </div>
+            
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-label">
+                    <span>Kemajuan:</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-label">
+                    <span>Estimasi waktu:</span>
+                    <span id="timeEstimate">-</span>
+                </div>
+            </div>
+            
+            <div class="cracking-result" id="crackingResult">
+                <div class="cracking-result-header">
+                    <h3 class="cracking-result-title">Hasil Cracking</h3>
+                    <span class="cracking-result-status" id="crackStatus">-</span>
+                </div>
+                
+                <div class="cracking-result-content">
+                    <p id="crackResultText">-</p>
+                    <div class="cracked-password" id="crackedPassword">-</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-container" id="info">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Informasi Hash
+            </h2>
+            
+            <div class="info-tabs">
+                <div class="info-tab active" data-tab="about">Tentang Hash</div>
+                <div class="info-tab" data-tab="security">Keamanan</div>
+                <div class="info-tab" data-tab="comparison">Perbandingan</div>
+            </div>
+            
+            <div class="info-content active" id="about">
+                <p class="info-text">
+                    Hashing adalah proses mengubah data menjadi nilai tetap panjang menggunakan algoritma matematika. Hash berfungsi sebagai one-way function, artinya mudah untuk menghitung hash dari input, tetapi sangat sulit untuk menentukan input dari hash.
+                </p>
+                <p class="info-text">
+                    Hash banyak digunakan dalam keamanan komputer untuk menyimpan password, memverifikasi integritas data, dan tanda tangan digital. Ketika Anda membuat password di situs web, biasanya password tersebut di-hash sebelum disimpan di database.
+                </p>
+                <ul class="info-list">
+                    <li>Hash selalu menghasilkan output dengan panjang yang sama, terlepas dari panjang input</li>
+                    <li>Perubahan kecil pada input akan menghasilkan perubahan besar pada output hash</li>
+                    <li>Hash adalah fungsi satu arah, tidak dapat dibalik untuk mendapatkan input asli</li>
+                    <li>Dua input yang berbeda seharusnya tidak menghasilkan hash yang sama (collision resistance)</li>
+                </ul>
+            </div>
+            
+            <div class="info-content" id="security">
+                <p class="info-text">
+                    Keamanan hash sangat penting dalam melindungi data sensitif seperti password. Beberapa algoritma hash lama seperti MD5 dan SHA-1 dianggap tidak aman untuk tujuan keamanan karena kerentanan terhadap collision attacks.
+                </p>
+                <p class="info-text">
+                    Untuk meningkatkan keamanan password, banyak sistem menggunakan teknik "salting" di mana string acak (salt) ditambahkan ke password sebelum di-hash. Ini mencegah penggunaan rainbow table dan membuat serangan dictionary lebih sulit.
+                </p>
+                <ul class="info-list">
+                    <li>Gunakan algoritma hash modern seperti SHA-256, SHA-3, atau bcrypt untuk keamanan optimal</li>
+                    <li>Selalu gunakan salt unik untuk setiap password untuk mencegah serangan precomputation</li>
+                    <li>Pertimbangkan menggunakan fungsi derivasi kunci seperti PBKDF2, scrypt, atau Argon2 untuk password</li>
+                    <li>Hindari menggunakan hash yang sama untuk tujuan berbeda dalam sistem yang sama</li>
+                </ul>
+            </div>
+            
+            <div class="info-content" id="comparison">
+                <p class="info-text">
+                    Berikut adalah perbandingan beberapa algoritma hash yang umum digunakan:
+                </p>
+                <table class="hash-comparison">
+                    <thead>
+                        <tr>
+                            <th>Algoritma</th>
+                            <th>Panjang Output</th>
+                            <th>Keamanan</th>
+                            <th>Kecepatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MD5</td>
+                            <td>128 bit (32 hex)</td>
+                            <td>Rendah (Vulnerable)</td>
+                            <td>Sangat Cepat</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-1</td>
+                            <td>160 bit (40 hex)</td>
+                            <td>Rendah (Vulnerable)</td>
+                            <td>Cepat</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-256</td>
+                            <td>256 bit (64 hex)</td>
+                            <td>Sedang</td>
+                            <td>Sedang</td>
+                        </tr>
+                        <tr>
+                            <td>SHA-512</td>
+                            <td>512 bit (128 hex)</td>
+                            <td>Tinggi</td>
+                            <td>Sedang</td>
+                        </tr>
+                        <tr>
+                            <td>bcrypt</td>
+                            <td>Variable</td>
+                            <td>Tinggi</td>
+                            <td>Lambat (Designed)</td>
+                        </tr>
+                        <tr>
+                            <td>Argon2</td>
+                            <td>Variable</td>
+                            <td>Sangat Tinggi</td>
+                            <td>Dapat Disesuaikan</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="info-text">
+                    Algoritma seperti bcrypt dan Argon2 dirancang khusus untuk hashing password dan memiliki fitur seperti work factor yang dapat disesuaikan untuk membuat proses hashing lebih lambat dan lebih sulit untuk di-crack.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#privacy">Kebijakan Privasi</a>
+            <a href="#terms">Syarat & Ketentuan</a>
+            <a href="#help">Bantuan</a>
+            <a href="#api">API</a>
+        </div>
+        <p>&copy; 2023 HashAnalyzer. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu toggle functionality
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+                
+                // Animate hamburger menu
+                const spans = menuToggle.querySelectorAll('span');
+                if (navMenu.classList.contains('active')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                } else {
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                }
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!navMenu.contains(event.target) && !menuToggle.contains(event.target) && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                }
+            });
+
+            // Hash identifier functionality
+            const hashInput = document.getElementById('hashInput');
+            const identifyBtn = document.getElementById('identifyBtn');
+            const hashTextBtn = document.getElementById('hashTextBtn');
+            const identifyLoading = document.getElementById('identifyLoading');
+            const identifyResult = document.getElementById('identifyResult');
+            const hashType = document.getElementById('hashType');
+            const hashLength = document.getElementById('hashLength');
+            const givenHash = document.getElementById('givenHash');
+            const originalText = document.getElementById('originalText');
+
+            // Sample hashes for identification
+            const sampleHashes = {
+                'md5': '098f6bcd4621d373cade4e832627b4f6', // test
+                'sha1': 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', // test
+                'sha256': '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', // test
+                'sha512': 'ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff' // test
+            };
+
+            identifyBtn.addEventListener('click', function() {
+                const hash = hashInput.value.trim();
+                if (!hash) {
+                    alert('Silakan masukkan hash untuk diidentifikasi');
+                    return;
+                }
+
+                // Show loading
+                identifyLoading.style.display = 'block';
+                identifyResult.style.display = 'none';
+
+                // Simulate identification
+                setTimeout(function() {
+                    const result = identifyHash(hash);
+                    displayIdentifyResult(result);
+                    
+                    // Hide loading and show result
+                    identifyLoading.style.display = 'none';
+                    identifyResult.style.display = 'block';
+                }, 1500);
+            });
+
+            hashTextBtn.addEventListener('click', function() {
+                const text = prompt('Masukkan teks yang ingin di-hash:');
+                if (!text) return;
+
+                // Hash the text using MD5 (simplified for demo)
+                let hash = '';
+                for (let i = 0; i < text.length; i++) {
+                    hash += text.charCodeAt(i).toString(16);
+                }
+                
+                // Pad to make it look like a real hash
+                while (hash.length < 32) {
+                    hash += '0';
+                }
+                
+                hashInput.value = hash;
+                
+                // Auto-identify the hash
+                identifyBtn.click();
+            });
+
+            function identifyHash(hash) {
+                // Determine hash type based on length
+                let type = 'Unknown';
+                let length = hash.length;
+                
+                if (length === 32) {
+                    type = 'MD5';
+                } else if (length === 40) {
+                    type = 'SHA-1';
+                } else if (length === 64) {
+                    type = 'SHA-256';
+                } else if (length === 128) {
+                    type = 'SHA-512';
+                }
+                
+                // Check if it's one of our sample hashes
+                let original = 'Unknown';
+                for (const [hashType, sampleHash] of Object.entries(sampleHashes)) {
+                    if (hash.toLowerCase() === sampleHash.toLowerCase()) {
+                        original = 'test';
+                        break;
+                    }
+                }
+                
+                return {
+                    type: type,
+                    length: length,
+                    hash: hash,
+                    original: original
+                };
+            }
+
+            function displayIdentifyResult(result) {
+                hashType.textContent = result.type;
+                hashLength.textContent = `${result.length} karakter`;
+                givenHash.textContent = result.hash;
+                originalText.textContent = result.original;
+            }
+
+            // Hash cracker simulator functionality
+            const crackHashInput = document.getElementById('crackHashInput');
+            const hashTypes = document.querySelectorAll('.hash-type');
+            const methodOptions = document.querySelectorAll('.method-option');
+            const startCrackBtn = document.getElementById('startCrackBtn');
+            const stopCrackBtn = document.getElementById('stopCrackBtn');
+            const crackLoading = document.getElementById('crackLoading');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const timeEstimate = document.getElementById('timeEstimate');
+            const crackingResult = document.getElementById('crackingResult');
+            const crackStatus = document.getElementById('crackStatus');
+            const crackResultText = document.getElementById('crackResultText');
+            const crackedPassword = document.getElementById('crackedPassword');
+            
+            let selectedHashType = 'md5';
+            let selectedMethod = 'bruteforce';
+            let crackInterval;
+            let progress = 0;
+            
+            // Hash type selection
+            hashTypes.forEach(type => {
+                type.addEventListener('click', function() {
+                    hashTypes.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedHashType = this.dataset.type;
+                });
+            });
+            
+            // Set default hash type
+            document.querySelector('.hash-type[data-type="md5"]').classList.add('active');
+            
+            // Method selection
+            methodOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('.method-radio');
+                    radio.checked = true;
+                    selectedMethod = this.dataset.method;
+                });
+            });
+            
+            // Start cracking simulation
+            startCrackBtn.addEventListener('click', function() {
+                const hash = crackHashInput.value.trim();
+                if (!hash) {
+                    alert('Silakan masukkan hash untuk di-crack');
+                    return;
+                }
+                
+                // Reset progress
+                progress = 0;
+                progressFill.style.width = '0%';
+                progressPercent.textContent = '0%';
+                
+                // Show loading and progress
+                crackLoading.style.display = 'block';
+                progressContainer.style.display = 'block';
+                crackingResult.style.display = 'none';
+                
+                // Disable start button and enable stop button
+                startCrackBtn.disabled = true;
+                stopCrackBtn.disabled = false;
+                
+                // Start simulation
+                crackInterval = setInterval(updateCrackProgress, 100);
+            });
+            
+            // Stop cracking simulation
+            stopCrackBtn.addEventListener('click', function() {
+                clearInterval(crackInterval);
+                
+                // Hide loading and progress
+                crackLoading.style.display = 'none';
+                progressContainer.style.display = 'none';
+                
+                // Enable start button and disable stop button
+                startCrackBtn.disabled = false;
+                stopCrackBtn.disabled = true;
+                
+                // Show result
+                crackingResult.style.display = 'block';
+                crackStatus.textContent = 'Dihentikan';
+                crackStatus.className = 'cracking-result-status status-failed';
+                crackResultText.textContent = 'Simulasi cracking dihentikan oleh pengguna.';
+                crackedPassword.textContent = '-';
+            });
+            
+            function updateCrackProgress() {
+                // Update progress
+                progress += Math.random() * 3;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.floor(progress)}%`;
+                
+                // Update time estimate
+                const remainingTime = Math.floor((100 - progress) * (Math.random() * 10 + 5));
+                if (remainingTime < 60) {
+                    timeEstimate.textContent = `${remainingTime} detik`;
+                } else {
+                    const minutes = Math.floor(remainingTime / 60);
+                    const seconds = remainingTime % 60;
+                    timeEstimate.textContent = `${minutes} menit ${seconds} detik`;
+                }
+                
+                // Check if cracking is complete
+                if (progress >= 100) {
+                    clearInterval(crackInterval);
+                    
+                    // Hide loading and progress
+                    crackLoading.style.display = 'none';
+                    progressContainer.style.display = 'none';
+                    
+                    // Enable start button and disable stop button
+                    startCrackBtn.disabled = false;
+                    stopCrackBtn.disabled = true;
+                    
+                    // Show result
+                    crackingResult.style.display = 'block';
+                    
+                    // Determine if crack was successful (random for demo)
+                    const success = Math.random() > 0.3; // 70% success rate for demo
+                    
+                    if (success) {
+                        crackStatus.textContent = 'Berhasil';
+                        crackStatus.className = 'cracking-result-status status-success';
+                        crackResultText.textContent = 'Password berhasil ditemukan:';
+                        
+                        // Generate a random password for demo
+                        const passwords = ['password', '123456', 'qwerty', 'admin', 'letmein', 'welcome', 'monkey', 'dragon'];
+                        const randomPassword = passwords[Math.floor(Math.random() * passwords.length)];
+                        crackedPassword.textContent = randomPassword;
+                    } else {
+                        crackStatus.textContent = 'Gagal';
+                        crackStatus.className = 'cracking-result-status status-failed';
+                        crackResultText.textContent = 'Password tidak ditemukan dalam rentang pencarian.';
+                        crackedPassword.textContent = '-';
+                    }
+                }
+            }
+
+            // Info tabs functionality
+            const infoTabs = document.querySelectorAll('.info-tab');
+            const infoContents = document.querySelectorAll('.info-content');
+            
+            infoTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // Update active tab
+                    infoTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update active content
+                    infoContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
