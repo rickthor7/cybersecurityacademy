@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Guard Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark-navy: #0A192F;
+            --bg-slate: #112240;
+            --text-light: #ccd6f6;
+            --text-secondary: #8892b0;
+            --accent-blue: #64ffda;
+            --card-bg: rgba(23, 42, 69, 0.75);
+            --border-color: rgba(100, 255, 218, 0.1);
+            --shadow-color: rgba(100, 255, 218, 0.07);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark-navy); color: var(--text-light); display: flex; justify-content: center; align-items: center; min-height: 100vh; background-image: radial-gradient(circle at 20% 20%, var(--bg-slate) 0%, transparent 40%); overflow: hidden; }
+        .container { width: 90%; max-width: 700px; padding: 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-align: center; display: none; animation: fadeIn 0.5s ease-out; }
+        .card.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 1rem; }
+        .tagline { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2.5rem; }
+        #name-input { width: 100%; padding: 16px; background-color: var(--bg-slate); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-light); font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 1.5rem; text-align: center; transition: all 0.3s ease; }
+        #name-input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px var(--shadow-color); }
+        .btn { background-color: var(--accent-blue); color: var(--bg-dark-navy); border: none; border-radius: 8px; padding: 16px 32px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(100, 255, 218, 0.2); }
+        .btn:active { transform: translateY(-1px); }
+        .btn-outline { background-color: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+        .link-nav { display: block; margin-top: 1rem; color: var(--accent-blue); text-decoration: none; font-weight: 600; }
+        #hud { display: flex; justify-content: space-between; margin-bottom: 2rem; }
+        .hud-prefix { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .hud-main-text { font-size: 2rem; font-weight: 700; color: var(--accent-blue); }
+        #question { font-size: 1.5rem; margin-bottom: 2rem; }
+        .btn-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media (min-width: 600px) { .btn-grid { grid-template-columns: 1fr 1fr; } }
+        .answer-btn { background-color: var(--bg-slate); color: var(--text-light); border: 1px solid var(--border-color); text-align: left; width: 100%; }
+        .answer-btn:hover { background-color: rgba(100, 255, 218, 0.1); transform: translateY(-2px); box-shadow: none; }
+        .answer-btn.correct { background-color: #2E7D32; border-color: #2E7D32; color: white; }
+        .answer-btn.wrong { background-color: #C62828; border-color: #C62828; color: white; }
+        #saving-status { color: var(--text-secondary); margin-top: 1rem; }
+        .result-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-container" class="card active">
+            <h1>Cyber Guard Quiz</h1>
+            <p class="tagline">Uji kemampuan Anda dalam menghadapi ancaman digital.</p>
+            <input type="text" id="name-input" placeholder="Masukkan nama Anda..." autocomplete="off" value="Udin">
+            <button id="start-btn" class="btn">Mulai Tantangan</button>
+            <a href="dashboard.html" class="link-nav">Lihat Papan Peringkat &rarr;</a>
+            <a href="glossary.html" class="link-nav">Buka Glosarium Siber</a>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-container" class="card">
+            <div id="hud">
+                <div id="hud-item">
+                    <p class="hud-prefix">PERTANYAAN</p>
+                    <h2 class="hud-main-text" id="question-counter"></h2>
+                </div>
+                <div id="hud-item">
+                    <p class="hud-prefix">SKOR</p>
+                    <h2 class="hud-main-text" id="score">0</h2>
+                </div>
+            </div>
+            <h2 id="question">Pertanyaan akan muncul di sini...</h2>
+            <div id="answer-buttons" class="btn-grid"></div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-container" class="card">
+            <h1>Misi Selesai!</h1>
+            <p>Callsign: <strong id="final-name" style="color: var(--accent-blue);"></strong></p>
+            <h2 id="final-score" style="font-size: 3rem; margin: 1rem 0;"></h2>
+            <p id="score-details" style="color: var(--text-secondary);"></p>
+            <p id="feedback-message" style="margin-top: 1rem;"></p>
+            <p id="saving-status">Mengirim data ke server...</p>
+            <div class="result-nav">
+                <button id="restart-btn" class="btn btn-outline">Ulangi Kuis</button>
+                <a href="dashboard.html" class="btn">Lihat Papan Peringkat</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PENTING: GANTI DENGAN URL WEB APP ANDA
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzY-5XLL_T9w2vcAJWD5HUpvsNIqavfoUFaq72O5aS8Dgn2riSrJBhDGV63J_fWxtQ/exec';
+
+        const startContainer = document.getElementById('start-container'), quizContainer = document.getElementById('quiz-container'), resultContainer = document.getElementById('result-container'), nameInput = document.getElementById('name-input'), startBtn = document.getElementById('start-btn'), restartBtn = document.getElementById('restart-btn'), questionElement = document.getElementById('question'), answerButtonsElement = document.getElementById('answer-buttons'), questionCounterElement = document.getElementById('question-counter'), scoreElement = document.getElementById('score'), finalNameElement = document.getElementById('final-name'), finalScoreElement = document.getElementById('final-score'), scoreDetailsElement = document.getElementById('score-details'), feedbackMessageElement = document.getElementById('feedback-message'), savingStatusElement = document.getElementById('saving-status');
+        let shuffledQuestions, currentQuestionIndex, score = 0, correctAnswers = 0, wrongAnswers = 0, userName = '';
+        
+        const questions = [
+            { question: 'Apa istilah untuk upaya menipu seseorang agar memberikan informasi sensitif?', answers: [{ text: 'Phishing', correct: true }, { text: 'Malware', correct: false }, { text: 'Ransomware', correct: false }, { text: 'Firewall', correct: false }] }, 
+            { question: 'Metode keamanan yang mengharuskan dua bukti identitas disebut...', answers: [{ text: 'SSO', correct: false }, { text: 'Password Manager', correct: false }, { text: '2FA', correct: true }, { text: 'Encryption', correct: false }] }, 
+            { question: 'Manakah contoh kata sandi yang paling kuat?', answers: [{ text: 'password123', correct: false }, { text: 'QwertyUiop', correct: false }, { text: '12345678', correct: false }, { text: 'Tr@v3l$ecure!2#', correct: true }] }, 
+            { question: 'Perangkat lunak yang dirancang untuk merusak komputer disebut...', answers: [{ text: 'Adware', correct: false }, { text: 'Malware', correct: true }, { text: 'Firmware', correct: false }, { text: 'Spyware', correct: false }] }, 
+            { question: 'VPN (Virtual Private Network) paling utama digunakan untuk...', answers: [{ text: 'Mempercepat internet', correct: false }, { text: 'Membuat koneksi aman & terenkripsi', correct: true }, { text: 'Membersihkan virus', correct: false }, { text: 'Membuat cadangan data', correct: false }] },
+            { question: 'Perangkat lunak yang menyamar sebagai program sah tetapi berisi fungsi berbahaya disebut...', answers: [{ text: 'Trojan Horse', correct: true }, { text: 'Virus', correct: false }, { text: 'Worm', correct: false }, { text: 'Spyware', correct: false }] },
+            { question: 'Apa tujuan utama dari \'Firewall\' dalam jaringan komputer?', answers: [{ text: 'Memblokir akses tidak sah', correct: true }, { text: 'Menganalisis performa jaringan', correct: false }, { text: 'Mempercepat koneksi internet', correct: false }, { text: 'Menyimpan cache website', correct: false }] },
+            { question: 'Serangan siber yang membanjiri server dengan lalu lintas internet palsu disebut...', answers: [{ text: 'DDoS (Distributed Denial-of-Service)', correct: true }, { text: 'SQL Injection', correct: false }, { text: 'Man-in-the-Middle', correct: false }, { text: 'Cross-Site Scripting (XSS)', correct: false }] },
+            { question: 'Saat menggunakan Wi-Fi publik, protokol keamanan terenkripsi manakah yang paling aman?', answers: [{ text: 'WPA3', correct: true }, { text: 'WPA2', correct: false }, { text: 'WEP', correct: false }, { text: 'Open Network (Tidak Aman)', correct: false }] },
+            { question: 'Apa itu \'Social Engineering\' dalam konteks keamanan siber?', answers: [{ text: 'Memanipulasi psikologis orang', correct: true }, { text: 'Merancang perangkat lunak sosial', correct: false }, { text: 'Membangun jaringan komputer', correct: false }, { text: 'Menganalisis data media sosial', correct: false }] }
+        ];
+
+        startBtn.addEventListener('click', startQuiz);
+        restartBtn.addEventListener('click', () => { resultContainer.classList.remove('active'); startContainer.classList.add('active'); });
+        
+        function startQuiz() { userName = nameInput.value.trim(); if (userName === '') { alert('Nama tidak boleh kosong!'); return; } score = 0; correctAnswers = 0; wrongAnswers = 0; scoreElement.innerText = score; startContainer.classList.remove('active'); quizContainer.classList.add('active'); shuffledQuestions = questions.sort(() => Math.random() - 0.5); currentQuestionIndex = 0; setNextQuestion(); }
+        function setNextQuestion() { resetState(); showQuestion(shuffledQuestions[currentQuestionIndex]); }
+        function showQuestion(question) { questionCounterElement.innerText = `${currentQuestionIndex + 1} / ${questions.length}`; questionElement.innerText = question.question; question.answers.forEach(answer => { const button = document.createElement('button'); button.innerText = answer.text; button.classList.add('btn', 'answer-btn'); if (answer.correct) button.dataset.correct = answer.correct; button.addEventListener('click', selectAnswer); answerButtonsElement.appendChild(button); }); }
+        function resetState() { while (answerButtonsElement.firstChild) { answerButtonsElement.removeChild(answerButtonsElement.firstChild); } }
+        function selectAnswer(e) { const selectedButton = e.target, correct = selectedButton.dataset.correct === 'true'; if (correct) { score += 10; correctAnswers++; scoreElement.innerText = score; } else { wrongAnswers++; } Array.from(answerButtonsElement.children).forEach(button => { setStatusClass(button, button.dataset.correct === 'true'); button.disabled = true; }); setTimeout(() => { currentQuestionIndex++; if (currentQuestionIndex < shuffledQuestions.length) setNextQuestion(); else showResults(); }, 1500); }
+        function setStatusClass(element, correct) { if (correct) element.classList.add('correct'); else element.classList.add('wrong'); }
+        function showResults() { quizContainer.classList.remove('active'); resultContainer.classList.add('active'); finalNameElement.innerText = userName; finalScoreElement.innerText = score; scoreDetailsElement.innerText = `Jawaban Benar: ${correctAnswers} | Jawaban Salah: ${wrongAnswers}`; if (score >= 80) feedbackMessageElement.innerText = "Luar biasa! Pengetahuan keamanan siber Anda sangat baik."; else if (score >= 60) feedbackMessageElement.innerText = "Bagus! Anda memiliki kesadaran keamanan yang baik."; else feedbackMessageElement.innerText = "Terus belajar! Keamanan digital adalah skill penting."; sendDataToSheet(); }
+        async function sendDataToSheet() { savingStatusElement.innerText = "Mengirim data ke server..."; try { const data = { nama: userName, skor: score, benar: correctAnswers, salah: wrongAnswers }; const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'text/plain;charset=utf-8' } }); const result = await response.json(); if (result.result === 'success') { savingStatusElement.innerText = "Data berhasil disimpan."; } else { throw new Error(result.message); } } catch (error) { console.error('Error:', error); savingStatusElement.innerText = "Gagal menyimpan data."; savingStatusElement.style.color = "#C62828"; } }
+    </script>
+</body>
+</html>
+
