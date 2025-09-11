@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortScan - Network Security Port Scanner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #06ffa5;
+            --danger-color: #ff006e;
+            --warning-color: #ffbe0b;
+            --dark-color: #0a0e27;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 30px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #a0a9d0;
+            margin-bottom: 30px;
+        }
+
+        .scanner-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(26, 31, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--light-color);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .port-options {
+            margin-bottom: 20px;
+        }
+
+        .option-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-group:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        .option-info {
+            flex: 1;
+        }
+
+        .option-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .option-description {
+            font-size: 14px;
+            color: #a0a9d0;
+        }
+
+        .custom-range {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .range-inputs {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .range-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light-color);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .range-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .scan-status {
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .scan-result {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .result-summary {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .summary-item {
+            flex: 1;
+            min-width: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #a0a9d0;
+        }
+
+        .open {
+            color: var(--danger-color);
+        }
+
+        .closed {
+            color: var(--success-color);
+        }
+
+        .filtered {
+            color: var(--warning-color);
+        }
+
+        .ports-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .ports-table th,
+        .ports-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ports-table th {
+            background: rgba(67, 97, 238, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .ports-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .port-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-open {
+            background: rgba(255, 0, 110, 0.2);
+            color: var(--danger-color);
+        }
+
+        .status-closed {
+            background: rgba(6, 255, 165, 0.2);
+            color: var(--success-color);
+        }
+
+        .status-filtered {
+            background: rgba(255, 190, 11, 0.2);
+            color: var(--warning-color);
+        }
+
+        .risk-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .risk-high {
+            color: var(--danger-color);
+        }
+
+        .risk-medium {
+            color: var(--warning-color);
+        }
+
+        .risk-low {
+            color: var(--success-color);
+        }
+
+        .security-tips {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(26, 31, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tips-list {
+            margin-top: 20px;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tip-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .tip-icon {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-top: 2px;
+        }
+
+        .tip-content h4 {
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .tip-content p {
+            color: #a0a9d0;
+            line-height: 1.5;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            padding: 20px 5%;
+            text-align: center;
+            background-color: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a9d0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a0a9d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .range-inputs {
+                flex-direction: column;
+            }
+            
+            .result-summary {
+                flex-direction: column;
+            }
+            
+            .ports-table {
+                font-size: 14px;
+            }
+            
+            .ports-table th,
+            .ports-table td {
+                padding: 8px;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 250px;
+                height: 100vh;
+                background-color: rgba(10, 14, 39, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 20px 20px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                gap: 20px;
+            }
+            
+            nav li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 15px;
+            }
+            
+            nav li:last-child {
+                border-bottom: none;
+            }
+            
+            nav a {
+                display: block;
+                padding: 10px 0;
+                width: 100%;
+                font-size: 18px;
+            }
+            
+            body.menu-open {
+                overflow: hidden;
+            }
+            
+            body.menu-open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-network-wired"></i>
+            <span>PortScan</span>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#scanner">Pemindai Port</a></li>
+                <li><a href="#tips">Tips Keamanan</a></li>
+                <li><a href="#about">Tentang</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Network Security Port Scanner</h1>
+            <p>Simulator pemindaian port untuk mendeteksi port yang terbuka dan layanan yang berjalan. Masukkan domain atau IP untuk memulai pemindaian.</p>
+        </section>
+
+        <section class="scanner-container" id="scanner">
+            <h2 class="section-title">
+                <i class="fas fa-radar"></i>
+                Pemindai Port
+            </h2>
+            
+            <div class="input-group">
+                <input type="text" class="input-field" id="targetInput" placeholder="Masukkan domain atau alamat IP...">
+            </div>
+            
+            <div class="port-options">
+                <div class="option-group" data-option="common">
+                    <input type="radio" name="portOption" class="option-radio" id="commonPorts" checked>
+                    <div class="option-info">
+                        <div class="option-name">Port Umum</div>
+                        <div class="option-description">Memindai port yang umum digunakan (80, 443, 21, 22, 25, dst.)</div>
+                    </div>
+                </div>
+                
+                <div class="option-group" data-option="range">
+                    <input type="radio" name="portOption" class="option-radio" id="rangePorts">
+                    <div class="option-info">
+                        <div class="option-name">Rentang Port</div>
+                        <div class="option-description">Memindai rentang port tertentu</div>
+                    </div>
+                </div>
+                
+                <div class="option-group" data-option="full">
+                    <input type="radio" name="portOption" class="option-radio" id="fullPorts">
+                    <div class="option-info">
+                        <div class="option-name">Semua Port</div>
+                        <div class="option-description">Memindai semua port (1-65535)</div>
+                    </div>
+                </div>
+                
+                <div class="custom-range" id="customRange">
+                    <div class="range-inputs">
+                        <input type="number" class="range-input" id="startPort" placeholder="Port awal" min="1" max="65535" value="1">
+                        <span>sampai</span>
+                        <input type="number" class="range-input" id="endPort" placeholder="Port akhir" min="1" max="65535" value="1024">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" id="scanBtn">
+                    <i class="fas fa-search"></i>
+                    Mulai Pemindaian
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="fas fa-eraser"></i>
+                    Bersihkan
+                </button>
+            </div>
+            
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-label">
+                    <span>Kemajuan Pemindaian:</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <div class="scan-status" id="scanStatus">
+                <div class="spinner"></div>
+                <p>Memindai port...</p>
+            </div>
+            
+            <div class="scan-result" id="scanResult">
+                <div class="result-header">
+                    <h3 class="result-title">Hasil Pemindaian</h3>
+                </div>
+                
+                <div class="result-summary" id="resultSummary">
+                    <div class="summary-item">
+                        <div class="summary-value open" id="openPortsCount">0</div>
+                        <div class="summary-label">Port Terbuka</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value closed" id="closedPortsCount">0</div>
+                        <div class="summary-label">Port Tertutup</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value filtered" id="filteredPortsCount">0</div>
+                        <div class="summary-label">Port Terfilter</div>
+                    </div>
+                </div>
+                
+                <table class="ports-table">
+                    <thead>
+                        <tr>
+                            <th>Port</th>
+                            <th>Status</th>
+                            <th>Layanan</th>
+                            <th>Versi</th>
+                            <th>Risiko</th>
+                        </tr>
+                    </thead>
+                    <tbody id="portsTableBody">
+                        <!-- Hasil pemindaian akan ditampilkan di sini -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="security-tips" id="tips">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                Tips Keamanan Port
+            </h2>
+            
+            <div class="tips-list">
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Tutup Port yang Tidak Diperlukan</h4>
+                        <p>Setiap port yang terbuka adalah potensi celah keamanan. Tutup semua port yang tidak digunakan secara aktif untuk mengurangi permukaan serangan. Gunakan firewall untuk memblokir akses ke port yang tidak diperlukan.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Amankan Layanan yang Berjalan</h4>
+                        <p>Untuk port yang harus tetap terbuka, pastikan layanan yang berjalan di port tersebut telah dikonfigurasi dengan aman. Perbarui perangkat lunak secara teratur dan gunakan autentikasi yang kuat.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Gunakan VPN untuk Akses Remote</h4>
+                        <p>Alih-alih membuka port layanan langsung ke internet, pertimbangkan untuk menggunakan VPN untuk akses remote. VPN menyediakan lapisan keamanan tambahan dan mengurangi eksposur port Anda.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Monitor Lalu Lintas Jaringan</h4>
+                        <p>Implementasikan sistem monitoring untuk mendeteksi aktivitas mencurigakan pada port Anda. Peringatan dini dapat membantu mencegah serangan sebelum mereka menyebabkan kerusakan.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Gunakan Port Non-Standard</h4>
+                        <p>Untuk layanan seperti SSH atau RDP, pertimbangkan untuk menggunakan port non-standard. Meskipun ini bukan solusi keamanan lengkap, ini dapat mengurangi serangan otomatis yang menargetkan port default.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Lakukan Pemindaian Berkala</h4>
+                        <p>Jadwalkan pemindaian port berkala untuk memastikan tidak ada port yang tidak disengaja terbuka. Pemindaian rutin membantu menjaga keamanan jaringan Anda seiring waktu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#privacy">Kebijakan Privasi</a>
+            <a href="#terms">Syarat & Ketentuan</a>
+            <a href="#help">Bantuan</a>
+            <a href="#api">API</a>
+        </div>
+        <p>&copy; 2023 PortScan. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu toggle functionality
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+                
+                // Animate hamburger menu
+                const spans = menuToggle.querySelectorAll('span');
+                if (navMenu.classList.contains('active')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                } else {
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                }
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!navMenu.contains(event.target) && !menuToggle.contains(event.target) && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'rotate(0) translate(0, 0)';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'rotate(0) translate(0, 0)';
+                }
+            });
+
+            // Port scanner functionality
+            const targetInput = document.getElementById('targetInput');
+            const optionGroups = document.querySelectorAll('.option-group');
+            const customRange = document.getElementById('customRange');
+            const startPort = document.getElementById('startPort');
+            const endPort = document.getElementById('endPort');
+            const scanBtn = document.getElementById('scanBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const scanStatus = document.getElementById('scanStatus');
+            const scanResult = document.getElementById('scanResult');
+            const openPortsCount = document.getElementById('openPortsCount');
+            const closedPortsCount = document.getElementById('closedPortsCount');
+            const filteredPortsCount = document.getElementById('filteredPortsCount');
+            const portsTableBody = document.getElementById('portsTableBody');
+            
+            let selectedOption = 'common';
+            let scanInterval = null;
+            let progress = 0;
+            
+            // Port option selection
+            optionGroups.forEach(group => {
+                group.addEventListener('click', function() {
+                    const radio = this.querySelector('.option-radio');
+                    radio.checked = true;
+                    
+                    selectedOption = this.dataset.option;
+                    
+                    // Show/hide custom range based on selection
+                    if (selectedOption === 'range') {
+                        customRange.style.display = 'block';
+                    } else {
+                        customRange.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Start scan
+            scanBtn.addEventListener('click', function() {
+                const target = targetInput.value.trim();
+                if (!target) {
+                    alert('Silakan masukkan domain atau alamat IP');
+                    return;
+                }
+                
+                // Validate target format (simplified for demo)
+                if (!isValidTarget(target)) {
+                    alert('Format target tidak valid. Silakan masukkan domain atau alamat IP yang valid.');
+                    return;
+                }
+                
+                // Get port range based on selection
+                let portRange = getPortRange();
+                
+                // Reset progress
+                progress = 0;
+                progressFill.style.width = '0%';
+                progressPercent.textContent = '0%';
+                
+                // Show progress and scan status
+                progressContainer.style.display = 'block';
+                scanStatus.style.display = 'block';
+                scanResult.style.display = 'none';
+                
+                // Disable scan button
+                scanBtn.disabled = true;
+                
+                // Store target and port range for simulation
+                window.scanTarget = target;
+                window.scanPortRange = portRange;
+                
+                // Start simulation
+                scanInterval = setInterval(updateScanProgress, 100);
+            });
+            
+            // Clear button
+            clearBtn.addEventListener('click', function() {
+                targetInput.value = '';
+                scanResult.style.display = 'none';
+                progressContainer.style.display = 'none';
+            });
+            
+            // Update scan progress
+            function updateScanProgress() {
+                // Update progress
+                progress += Math.random() * 5;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.floor(progress)}%`;
+                
+                // Check if scan is complete
+                if (progress >= 100) {
+                    clearInterval(scanInterval);
+                    
+                    // Hide scan status
+                    scanStatus.style.display = 'none';
+                    
+                    // Enable scan button
+                    scanBtn.disabled = false;
+                    
+                    // Show result
+                    displayScanResult(window.scanTarget, window.scanPortRange);
+                }
+            }
+            
+            // Display scan result
+            function displayScanResult(target, portRange) {
+                // Generate random scan results
+                const scanResults = generateScanResults(portRange);
+                
+                // Count ports by status
+                const openPorts = scanResults.filter(port => port.status === 'open');
+                const closedPorts = scanResults.filter(port => port.status === 'closed');
+                const filteredPorts = scanResults.filter(port => port.status === 'filtered');
+                
+                // Update summary
+                openPortsCount.textContent = openPorts.length;
+                closedPortsCount.textContent = closedPorts.length;
+                filteredPortsCount.textContent = filteredPorts.length;
+                
+                // Clear and populate table
+                portsTableBody.innerHTML = '';
+                scanResults.forEach(port => {
+                    const row = document.createElement('tr');
+                    
+                    // Determine status class
+                    let statusClass;
+                    if (port.status === 'open') {
+                        statusClass = 'status-open';
+                    } else if (port.status === 'closed') {
+                        statusClass = 'status-closed';
+                    } else {
+                        statusClass = 'status-filtered';
+                    }
+                    
+                    // Determine risk class and icon
+                    let riskClass, riskIcon;
+                    if (port.risk === 'high') {
+                        riskClass = 'risk-high';
+                        riskIcon = 'fas fa-exclamation-triangle';
+                    } else if (port.risk === 'medium') {
+                        riskClass = 'risk-medium';
+                        riskIcon = 'fas fa-exclamation-circle';
+                    } else {
+                        riskClass = 'risk-low';
+                        riskIcon = 'fas fa-check-circle';
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${port.number}</td>
+                        <td><span class="port-status ${statusClass}">${port.status.toUpperCase()}</span></td>
+                        <td>${port.service}</td>
+                        <td>${port.version}</td>
+                        <td>
+                            <div class="risk-indicator ${riskClass}">
+                                <i class="${riskIcon}"></i>
+                                <span>${port.risk.toUpperCase()}</span>
+                            </div>
+                        </td>
+                    `;
+                    
+                    portsTableBody.appendChild(row);
+                });
+                
+                // Show result
+                scanResult.style.display = 'block';
+            }
+            
+            // Generate random scan results
+            function generateScanResults(portRange) {
+                const results = [];
+                
+                // Common ports with services
+                const commonPorts = [
+                    { number: 21, service: 'FTP', version: 'vsftpd 3.0.3', risk: 'medium' },
+                    { number: 22, service: 'SSH', version: 'OpenSSH 8.2p1', risk: 'medium' },
+                    { number: 23, service: 'Telnet', version: 'Linux Telnet', risk: 'high' },
+                    { number: 25, service: 'SMTP', version: 'Postfix 3.4.14', risk: 'low' },
+                    { number: 53, service: 'DNS', version: 'BIND 9.16.1', risk: 'medium' },
+                    { number: 80, service: 'HTTP', version: 'Apache 2.4.46', risk: 'medium' },
+                    { number: 110, service: 'POP3', version: 'Dovecot 2.3.10', risk: 'low' },
+                    { number: 135, service: 'RPC', version: 'Microsoft RPC', risk: 'high' },
+                    { number: 139, service: 'NetBIOS', version: 'Samba', risk: 'medium' },
+                    { number: 143, service: 'IMAP', version: 'Dovecot 2.3.10', risk: 'low' },
+                    { number: 443, service: 'HTTPS', version: 'nginx 1.18.0', risk: 'medium' },
+                    { number: 445, service: 'SMB', version: 'Samba 4.11.6', risk: 'high' },
+                    { number: 993, service: 'IMAPS', version: 'Dovecot 2.3.10', risk: 'low' },
+                    { number: 995, service: 'POP3S', version: 'Dovecot 2.3.10', risk: 'low' },
+                    { number: 1433, service: 'MS SQL', version: 'Microsoft SQL Server 2019', risk: 'high' },
+                    { number: 3306, service: 'MySQL', version: 'MySQL 8.0.21', risk: 'medium' },
+                    { number: 3389, service: 'RDP', version: 'Microsoft Terminal Service', risk: 'high' },
+                    { number: 5432, service: 'PostgreSQL', version: 'PostgreSQL 12.4', risk: 'medium' },
+                    { number: 5900, service: 'VNC', version: 'VNC 4.1.1', risk: 'high' },
+                    { number: 8080, service: 'HTTP-Alt', version: 'Apache Tomcat 9.0.37', risk: 'medium' }
+                ];
+                
+                // Generate results based on port range
+                for (let port = portRange.start; port <= portRange.end; port++) {
+                    // Check if this is a common port
+                    const commonPort = commonPorts.find(p => p.number === port);
+                    
+                    if (commonPort) {
+                        // Randomly determine status for common ports
+                        const rand = Math.random();
+                        let status;
+                        
+                        if (rand < 0.4) {
+                            status = 'open';
+                        } else if (rand < 0.7) {
+                            status = 'closed';
+                        } else {
+                            status = 'filtered';
+                        }
+                        
+                        results.push({
+                            number: port,
+                            status: status,
+                            service: commonPort.service,
+                            version: commonPort.version,
+                            risk: commonPort.risk
+                        });
+                    } else {
+                        // For non-common ports, mostly closed or filtered
+                        const rand = Math.random();
+                        let status;
+                        
+                        if (rand < 0.1) {
+                            status = 'open';
+                            // Generate random service name for open ports
+                            const services = ['Unknown', 'Custom Service', 'Legacy Service'];
+                            const service = services[Math.floor(Math.random() * services.length)];
+                            
+                            results.push({
+                                number: port,
+                                status: status,
+                                service: service,
+                                version: 'Unknown',
+                                risk: Math.random() < 0.5 ? 'medium' : 'low'
+                            });
+                        } else if (rand < 0.6) {
+                            status = 'closed';
+                            
+                            results.push({
+                                number: port,
+                                status: status,
+                                service: '-',
+                                version: '-',
+                                risk: 'low'
+                            });
+                        } else {
+                            status = 'filtered';
+                            
+                            results.push({
+                                number: port,
+                                status: status,
+                                service: '-',
+                                version: '-',
+                                risk: 'low'
+                            });
+                        }
+                    }
+                }
+                
+                return results;
+            }
+            
+            // Get port range based on selection
+            function getPortRange() {
+                if (selectedOption === 'common') {
+                    return { start: 1, end: 1024 };
+                } else if (selectedOption === 'range') {
+                    const start = parseInt(startPort.value) || 1;
+                    const end = parseInt(endPort.value) || 1024;
+                    
+                    // Validate range
+                    if (start < 1) startPort.value = 1;
+                    if (end > 65535) endPort.value = 65535;
+                    if (start > end) {
+                        // Swap values if start > end
+                        startPort.value = end;
+                        endPort.value = start;
+                    }
+                    
+                    return { 
+                        start: parseInt(startPort.value), 
+                        end: parseInt(endPort.value) 
+                    };
+                } else { // full
+                    return { start: 1, end: 65535 };
+                }
+            }
+            
+            // Validate target format (simplified for demo)
+            function isValidTarget(target) {
+                // Simple IP address validation
+                const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+                if (ipRegex.test(target)) {
+                    const parts = target.split('.');
+                    for (const part of parts) {
+                        if (parseInt(part) > 255) return false;
+                    }
+                    return true;
+                }
+                
+                // Simple domain validation
+                const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+                return domainRegex.test(target);
+            }
+        });
+    </script>
+</body>
+</html>
