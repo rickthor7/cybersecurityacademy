@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosarium - Cyber Guard Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark-navy: #0A192F;
+            --bg-slate: #112240;
+            --text-light: #ccd6f6;
+            --text-secondary: #8892b0;
+            --accent-blue: #64ffda;
+            --card-bg: rgba(23, 42, 69, 0.75);
+            --border-color: rgba(100, 255, 218, 0.1);
+            --shadow-color: rgba(100, 255, 218, 0.07);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark-navy); color: var(--text-light); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; background-image: radial-gradient(circle at 50% 10%, var(--bg-slate) 0%, transparent 40%); }
+        .container { width: 95%; max-width: 1100px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); text-align: center; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 1rem; }
+        .tagline { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2.5rem; }
+        .search-wrapper { position: relative; margin-bottom: 2.5rem; }
+        #search-input { width: 100%; padding: 16px 16px 16px 50px; background-color: var(--bg-slate); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-light); font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
+        #search-input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px var(--shadow-color); }
+        .search-wrapper svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; text-align: left; }
+        .term-card { background-color: var(--bg-slate); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); cursor: pointer; transition: all 0.3s ease; }
+        .term-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
+        .term-card h3 { color: var(--text-light); }
+        .btn { background-color: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 16px 32px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; margin-top: 2.5rem; }
+        .btn:hover { background-color: rgba(100, 255, 218, 0.1); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; width: 90%; max-width: 600px; transform: scale(0.95); transition: all 0.3s ease; position: relative; }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal h2 { color: var(--accent-blue); margin-bottom: 1rem; }
+        .modal p { color: var(--text-secondary); line-height: 1.6; }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-secondary); font-size: 2rem; cursor: pointer; transition: color 0.3s; }
+        .close-btn:hover { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Glosarium Siber</h1>
+            <p class="tagline">Pahami istilah-istilah kunci dalam dunia keamanan digital.</p>
+            <div class="search-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="search-input" placeholder="Cari istilah...">
+            </div>
+            <div id="glossary-grid" class="glossary-grid"></div>
+            <a href="index.html" class="btn">&larr; Kembali ke Kuis</a>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <button id="close-btn" class="close-btn">&times;</button>
+            <h2 id="modal-term"></h2>
+            <p id="modal-definition"></p>
+        </div>
+    </div>
+
+    <script>
+        const glossaryData = [
+            { term: 'Phishing', definition: 'Upaya penipuan untuk mencuri informasi sensitif (seperti nama pengguna, kata sandi, atau data kartu kredit) dengan menyamar sebagai entitas tepercaya melalui email atau komunikasi elektronik lainnya.' },
+            { term: 'Malware', definition: 'Singkatan dari "malicious software". Ini adalah perangkat lunak apa pun yang sengaja dirancang untuk menyebabkan kerusakan pada komputer, server, atau jaringan komputer.' },
+            { term: 'Ransomware', definition: 'Jenis malware yang mengenkripsi file korban, kemudian menuntut tebusan (ransom) untuk mengembalikan akses ke data tersebut.' },
+            { term: 'Firewall', definition: 'Sistem keamanan jaringan yang memantau dan mengontrol lalu lintas jaringan yang masuk dan keluar berdasarkan aturan keamanan yang telah ditentukan. Berfungsi sebagai penghalang antara jaringan internal yang tepercaya dan jaringan eksternal yang tidak tepercaya.' },
+            { term: 'VPN (Virtual Private Network)', definition: 'Membuat koneksi jaringan pribadi di atas jaringan publik (seperti internet), memungkinkan pengguna untuk mengirim dan menerima data seolah-olah perangkat mereka terhubung langsung ke jaringan pribadi. Ini mengenkripsi koneksi dan menyembunyikan alamat IP.' },
+            { term: 'Two-Factor Authentication (2FA)', definition: 'Lapisan keamanan tambahan yang mengharuskan pengguna memberikan dua jenis bukti identifikasi yang berbeda untuk mengakses akun. Contoh: kata sandi (sesuatu yang Anda tahu) dan kode dari ponsel (sesuatu yang Anda miliki).' },
+            { term: 'DDoS Attack', definition: 'Singkatan dari "Distributed Denial-of-Service". Serangan siber di mana pelaku berusaha membuat mesin atau sumber daya jaringan tidak tersedia bagi pengguna yang dituju dengan membanjirinya dengan lalu lintas internet dari berbagai sumber.' },
+            { term: 'Trojan Horse', definition: 'Jenis malware yang menyamar sebagai perangkat lunak yang sah. Trojan dirancang untuk merusak, mengganggu, mencuri, atau secara umum menimbulkan tindakan berbahaya lain pada data atau jaringan Anda.' },
+            { term: 'Social Engineering', definition: 'Seni memanipulasi psikologis orang agar mereka melakukan tindakan atau membocorkan informasi rahasia. Ini lebih mengandalkan interaksi manusia daripada meretas sistem secara teknis.' },
+            { term: 'SQL Injection', definition: 'Teknik serangan di mana kode SQL (Structured Query Language) berbahaya disisipkan ke dalam query ke database, memungkinkan penyerang untuk melihat data yang seharusnya tidak dapat mereka lihat atau bahkan memanipulasi database.' },
+            { term: 'Vulnerability', definition: 'Kelemahan dalam sistem, proses, atau kontrol yang dapat dieksploitasi oleh penyerang untuk mendapatkan akses tidak sah atau menyebabkan kerusakan.' },
+            { term: 'Zero-Day Exploit', definition: 'Serangan siber yang terjadi pada hari yang sama saat kelemahan ditemukan di perangkat lunak. Pada saat itu, kerentanan tersebut belum diketahui oleh pengembang, sehingga belum ada patch yang tersedia.' },
+            { term: 'Encryption', definition: 'Proses mengubah data menjadi kode untuk mencegah akses yang tidak sah. Data yang dapat dibaca (plaintext) diubah menjadi format yang tidak dapat dibaca (ciphertext) menggunakan algoritma.' },
+            { term: 'Antivirus', definition: 'Perangkat lunak yang dirancang untuk mendeteksi, mencegah, dan menghapus perangkat lunak berbahaya (malware) seperti virus, worm, dan Trojan.' },
+            { term: 'Man-in-the-Middle (MitM) Attack', definition: 'Serangan di mana penyerang secara diam-diam menyadap dan mungkin mengubah komunikasi antara dua pihak yang percaya bahwa mereka berkomunikasi secara langsung satu sama lain.' }
+        ];
+        const grid = document.getElementById('glossary-grid'), searchInput = document.getElementById('search-input'), modalOverlay = document.getElementById('modal-overlay'), modalTerm = document.getElementById('modal-term'), modalDefinition = document.getElementById('modal-definition'), closeBtn = document.getElementById('close-btn');
+        function displayTerms(terms) { grid.innerHTML = ''; terms.forEach(item => { const card = document.createElement('div'); card.className = 'term-card'; card.innerHTML = `<h3>${item.term}</h3>`; card.addEventListener('click', () => openModal(item.term, item.definition)); grid.appendChild(card); }); }
+        function openModal(term, definition) { modalTerm.textContent = term; modalDefinition.textContent = definition; modalOverlay.classList.add('active'); }
+        function closeModal() { modalOverlay.classList.remove('active'); }
+        searchInput.addEventListener('keyup', (e) => { const searchTerm = e.target.value.toLowerCase(); const filteredTerms = glossaryData.filter(item => item.term.toLowerCase().includes(searchTerm)); displayTerms(filteredTerms); });
+        closeBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) { closeModal(); } });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); } });
+        displayTerms(glossaryData);
+    </script>
+</body>
+</html>
