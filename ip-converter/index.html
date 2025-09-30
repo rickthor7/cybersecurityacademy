@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Tools - Converter & Classifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark-navy: #0A192F;
+            --bg-slate: #112240;
+            --text-light: #ccd6f6;
+            --text-secondary: #8892b0;
+            --accent-blue: #64ffda;
+            --card-bg: rgba(23, 42, 69, 0.75);
+            --border-color: rgba(100, 255, 218, 0.1);
+            --shadow-color: rgba(100, 255, 218, 0.07);
+            --error-color: #ff5277;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 10% 90%, var(--bg-slate) 0%, transparent 40%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1, h2, h3 { color: var(--accent-blue); }
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+        .tagline { color: var(--text-secondary); font-size: 1.1rem; text-align: center; margin-bottom: 2.5rem; }
+        h2 { font-size: 1.8rem; margin-bottom: 1.5rem; border-left: 4px solid var(--accent-blue); padding-left: 1rem; }
+        h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 1rem; }
+
+        .input-group { margin-bottom: 1.5rem; }
+        .input-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); }
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--bg-slate);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px var(--shadow-color); }
+        
+        .btn {
+            background-color: var(--accent-blue);
+            color: var(--bg-dark-navy);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 4px 20px rgba(100, 255, 218, 0.2); }
+
+        .result-box {
+            background-color: var(--bg-slate);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .result-text {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .copy-btn:hover { background-color: rgba(100, 255, 218, 0.1); }
+        .copy-btn svg { width: 16px; height: 16px; }
+
+        .error-message { color: var(--error-color); margin-top: 1rem; text-align: center; min-height: 1.2rem; }
+
+        .divider { height: 1px; background-color: var(--border-color); border: none; margin: 2rem 0; }
+        
+        .materi-content p, .materi-content li {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .materi-content code {
+            background-color: var(--bg-slate);
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 6px;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--accent-blue);
+        }
+        .materi-content ol { padding-left: 20px; }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IP Address Tools</h1>
+            <p class="tagline">Konverter, Klasifikasi, dan Materi Pembelajaran Lengkap</p>
+        </header>
+
+        <!-- IP Converter -->
+        <main class="card">
+            <h2>Konverter IP & Biner</h2>
+            
+            <!-- IP to Binary -->
+            <div class="input-group">
+                <label for="ip-input">Alamat IP ke Biner</label>
+                <input type="text" id="ip-input" class="input-field" placeholder="Contoh: 192.168.1.1">
+            </div>
+            <button id="convert-to-binary-btn" class="btn">Konversi ke Biner</button>
+            <div id="binary-result-box" class="result-box" style="display: none;">
+                <span id="binary-result" class="result-text"></span>
+                <button id="copy-binary-btn" class="copy-btn">
+                    <svg fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zM-1 1.5A1.5 1.5 0 0 1 .5 0h3A1.5 1.5 0 0 1 5 1.5v1A1.5 1.5 0 0 1 3.5 4h-3A1.5 1.5 0 0 1-1 2.5v-1z"/></svg>
+                    <span class="copy-text">Salin</span>
+                </button>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Binary to IP -->
+            <div class="input-group">
+                <label for="binary-input">Biner ke Alamat IP</label>
+                <input type="text" id="binary-input" class="input-field" placeholder="Contoh: 11000000.10101000.00000001.00000001">
+            </div>
+            <button id="convert-to-ip-btn" class="btn">Konversi ke IP</button>
+            <div id="ip-result-box" class="result-box" style="display: none;">
+                <span id="ip-result" class="result-text"></span>
+                <button id="copy-ip-btn" class="copy-btn">
+                     <svg fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zM-1 1.5A1.5 1.5 0 0 1 .5 0h3A1.5 1.5 0 0 1 5 1.5v1A1.5 1.5 0 0 1 3.5 4h-3A1.5 1.5 0 0 1-1 2.5v-1z"/></svg>
+                    <span class="copy-text">Salin</span>
+                </button>
+            </div>
+            
+            <p id="converter-error" class="error-message"></p>
+        </main>
+        
+        <!-- IP Classifier -->
+        <section class="card">
+            <h2>Klasifikasi Kelas IP</h2>
+            <div class="input-group">
+                <label for="classify-ip-input">Masukkan Alamat IP</label>
+                <input type="text" id="classify-ip-input" class="input-field" placeholder="Contoh: 172.16.10.5">
+            </div>
+            <button id="classify-btn" class="btn">Klasifikasikan</button>
+            <div id="class-result-box" class="result-box" style="display: none;">
+                <span id="class-result" class="result-text"></span>
+            </div>
+             <p id="classifier-error" class="error-message"></p>
+        </section>
+
+        <!-- Learning Materials -->
+        <section class="card">
+            <h2>Materi Pembelajaran</h2>
+            <div class="materi-content">
+                <h3>Cara Konversi Manual IP ke Biner</h3>
+                <p>Setiap alamat IP (versi 4) terdiri dari 4 bagian (oktet) yang dipisahkan oleh titik. Setiap oktet adalah angka desimal dari 0 hingga 255. Untuk mengubahnya menjadi biner, kita konversi setiap oktet secara terpisah menjadi format 8-bit.</p>
+                <p>Gunakan deret bilangan biner (pangkat 2) dari kanan ke kiri:</p>
+                <code>128, 64, 32, 16, 8, 4, 2, 1</code>
+                <p>Contoh konversi angka <code>192</code>:</p>
+                <ol>
+                    <li>Apakah 192 lebih besar atau sama dengan 128? Ya. (192-128 = 64). Bit pertama adalah <strong>1</strong>.</li>
+                    <li>Apakah sisa 64 lebih besar atau sama dengan 64? Ya. (64-64 = 0). Bit kedua adalah <strong>1</strong>.</li>
+                    <li>Karena sisanya 0, semua bit berikutnya adalah <strong>0</strong>.</li>
+                </ol>
+                <p>Jadi, <code>192</code> dalam biner 8-bit adalah <code>11000000</code>.</p>
+
+                <h3>Cara Mengklasifikasikan Kelas IP</h3>
+                <p>Kelas alamat IP ditentukan oleh nilai oktet pertamanya. Ini membantu mengidentifikasi berapa banyak bagian dari alamat IP yang mewakili jaringan (network) dan berapa banyak yang mewakili host.</p>
+                <ul>
+                    <li><strong>Kelas A:</strong> Oktet pertama antara <strong>1 - 126</strong>. (Contoh: <code>10.50.10.1</code>). Dirancang untuk jaringan yang sangat besar.</li>
+                    <li><strong>Kelas B:</strong> Oktet pertama antara <strong>128 - 191</strong>. (Contoh: <code>172.16.20.5</code>). Untuk jaringan skala menengah hingga besar.</li>
+                    <li><strong>Kelas C:</strong> Oktet pertama antara <strong>192 - 223</strong>. (Contoh: <code>192.168.1.1</code>). Paling umum digunakan untuk jaringan kecil (LAN).</li>
+                    <li><strong>Catatan:</strong> Alamat yang dimulai dengan <code>127</code> (misal: <code>127.0.0.1</code>) adalah alamat *loopback* khusus untuk pengujian koneksi ke mesin itu sendiri.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <a href="https://instagram.com/iam.rickthor7" target="_blank" rel="noopener noreferrer">dibuat oleh Rickthor7</a>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Element Selectors ---
+            const ipInput = document.getElementById('ip-input');
+            const convertToBinaryBtn = document.getElementById('convert-to-binary-btn');
+            const binaryResultBox = document.getElementById('binary-result-box');
+            const binaryResult = document.getElementById('binary-result');
+            const copyBinaryBtn = document.getElementById('copy-binary-btn');
+
+            const binaryInput = document.getElementById('binary-input');
+            const convertToIpBtn = document.getElementById('convert-to-ip-btn');
+            const ipResultBox = document.getElementById('ip-result-box');
+            const ipResult = document.getElementById('ip-result');
+            const copyIpBtn = document.getElementById('copy-ip-btn');
+            const converterError = document.getElementById('converter-error');
+
+            const classifyIpInput = document.getElementById('classify-ip-input');
+            const classifyBtn = document.getElementById('classify-btn');
+            const classResultBox = document.getElementById('class-result-box');
+            const classResult = document.getElementById('class-result');
+            const classifierError = document.getElementById('classifier-error');
+            
+            // --- Validation Functions ---
+            const isValidIp = (ip) => {
+                const octets = ip.split('.');
+                if (octets.length !== 4) return false;
+                return octets.every(octet => {
+                    const num = parseInt(octet, 10);
+                    return !isNaN(num) && num >= 0 && num <= 255 && String(num) === octet;
+                });
+            };
+
+            const isValidBinary = (binary) => {
+                const parts = binary.split('.');
+                if (parts.length !== 4) return false;
+                return parts.every(part => /^[01]{8}$/.test(part));
+            };
+
+            // --- UI Helper Functions ---
+            const showError = (element, message) => {
+                element.textContent = message;
+                setTimeout(() => { element.textContent = ''; }, 3000);
+            };
+
+            const handleCopy = (text, btnElement) => {
+                navigator.clipboard.writeText(text).then(() => {
+                    const copyText = btnElement.querySelector('.copy-text');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Disalin!';
+                    setTimeout(() => { copyText.textContent = originalText; }, 2000);
+                }).catch(err => console.error('Gagal menyalin:', err));
+            };
+
+            // --- Event Listeners ---
+            convertToBinaryBtn.addEventListener('click', () => {
+                const ip = ipInput.value.trim();
+                if (!isValidIp(ip)) {
+                    showError(converterError, 'Format alamat IP tidak valid.');
+                    binaryResultBox.style.display = 'none';
+                    return;
+                }
+                const binary = ip.split('.').map(octet => parseInt(octet, 10).toString(2).padStart(8, '0')).join('.');
+                binaryResult.textContent = binary;
+                binaryResultBox.style.display = 'flex';
+                converterError.textContent = '';
+            });
+
+            convertToIpBtn.addEventListener('click', () => {
+                const binary = binaryInput.value.trim();
+                if (!isValidBinary(binary)) {
+                    showError(converterError, 'Format biner tidak valid. Harap gunakan 4 oktet 8-bit dipisah titik.');
+                    ipResultBox.style.display = 'none';
+                    return;
+                }
+                const ip = binary.split('.').map(part => parseInt(part, 2)).join('.');
+                ipResult.textContent = ip;
+                ipResultBox.style.display = 'flex';
+                converterError.textContent = '';
+            });
+
+            classifyBtn.addEventListener('click', () => {
+                const ip = classifyIpInput.value.trim();
+                if (!isValidIp(ip)) {
+                    showError(classifierError, 'Format alamat IP tidak valid.');
+                    classResultBox.style.display = 'none';
+                    return;
+                }
+                
+                const firstOctet = parseInt(ip.split('.')[0], 10);
+                let classification = '';
+
+                if (firstOctet >= 1 && firstOctet <= 126) {
+                    classification = `Kelas A (Range: 1-126). IP Jaringan Privat: 10.0.0.0 - 10.255.255.255`;
+                } else if (firstOctet === 127) {
+                    classification = `Alamat Loopback (Bukan Kelas A/B/C). Digunakan untuk self-testing.`;
+                } else if (firstOctet >= 128 && firstOctet <= 191) {
+                    classification = `Kelas B (Range: 128-191). IP Jaringan Privat: 172.16.0.0 - 172.31.255.255`;
+                } else if (firstOctet >= 192 && firstOctet <= 223) {
+                    classification = `Kelas C (Range: 192-223). IP Jaringan Privat: 192.168.0.0 - 192.168.255.255`;
+                } else if (firstOctet >= 224 && firstOctet <= 239) {
+                    classification = `Kelas D (Multicast). Tidak untuk penggunaan umum.`;
+                } else {
+                    classification = `Kelas E (Eksperimental) atau di luar range umum.`;
+                }
+
+                classResult.textContent = classification;
+                classResultBox.style.display = 'flex';
+                classifierError.textContent = '';
+            });
+
+            copyBinaryBtn.addEventListener('click', () => handleCopy(binaryResult.textContent, copyBinaryBtn));
+            copyIpBtn.addEventListener('click', () => handleCopy(ipResult.textContent, copyIpBtn));
+        });
+    </script>
+</body>
+</html>
+
