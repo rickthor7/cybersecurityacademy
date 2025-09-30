@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Tools Advanced - Konverter & Klasifikasi</title>
+    <!-- Ganti font ke Share Tech Mono untuk keterbacaan yang lebih baik -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Code Starts Here --- */
+        :root {
+            --primary-glow: #00f5ff;
+            --secondary-glow: #8a2be2;
+            --background-dark: #0d0221;
+            --background-med: #1a0b38;
+            --border-color: #6a0dad;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b3b3b3;
+            --error-color: #ff4d4d;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace; /* Font baru */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            background-image: linear-gradient(45deg, rgba(2, 4, 18, 0.8) 0%, rgba(26, 4, 34, 0.9) 100%), url('https://www.transparenttextures.com/patterns/cubes.png');
+        }
+
+        .container {
+            background: rgba(10, 2, 38, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 25px rgba(106, 13, 173, 0.7);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-glow);
+            text-shadow: 0 0 10px var(--primary-glow);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1em; /* Sedikit lebih besar untuk keterbacaan */
+            margin-bottom: 30px;
+        }
+
+        .converter-card, .classifier-card {
+            background: rgba(26, 11, 56, 0.6);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--secondary-glow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .converter-card:hover, .classifier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        h2 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 45px 12px 15px; /* Tambah padding kanan untuk tombol paste */
+            border: 1px solid var(--secondary-glow);
+            border-radius: 5px;
+            background-color: var(--background-med);
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+        
+        .paste-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        .paste-btn:hover {
+            color: var(--primary-glow);
+        }
+
+        .paste-btn svg {
+            width: 20px;
+            height: 20px;
+            pointer-events: none; /* Agar klik tidak terhalang svg */
+        }
+        
+        button:not(.paste-btn):not(.copy-btn) {
+            background: linear-gradient(45deg, var(--border-color), var(--secondary-glow));
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:not(.paste-btn):not(.copy-btn):hover {
+            background: linear-gradient(45deg, var(--secondary-glow), var(--border-color));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--secondary-glow);
+        }
+
+        .output-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            background-color: var(--background-dark);
+            border-radius: 5px;
+            border: 1px dashed var(--border-color);
+            transition: opacity 0.5s;
+        }
+        
+        .result-box {
+            flex-grow: 1;
+            padding: 15px;
+            color: var(--primary-glow);
+            font-size: 1.2em;
+            min-height: 25px;
+            word-wrap: break-word;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 5px var(--primary-glow);
+            text-align: left;
+        }
+
+        .result-box.error {
+            color: var(--error-color);
+            text-shadow: 0 0 5px var(--error-color);
+        }
+        
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: color 0.3s;
+            visibility: hidden; /* Sembunyikan tombol copy secara default */
+            position: relative; /* Untuk tooltip */
+        }
+        
+        .copy-btn.visible {
+            visibility: visible;
+        }
+
+        .copy-btn:hover {
+            color: var(--primary-glow);
+        }
+
+        .copy-btn svg {
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+
+        /* Tooltip untuk feedback copy */
+        .copy-btn::after {
+            content: 'Tersalin!';
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background-color: var(--primary-glow);
+            color: var(--background-dark);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .copy-btn.copied::after {
+            opacity: 1;
+        }
+
+        footer {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 1em;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(179, 179, 179, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IP Address Tools</h1>
+            <p>Konversi Desimal ke Biner dan Sebaliknya, Serta Klasifikasi Kelas IP</p>
+        </div>
+
+        <!-- Desimal ke Biner -->
+        <div class="converter-card">
+            <h2>Desimal ke Biner</h2>
+            <div class="input-wrapper">
+                <input type="text" id="decimal-input" placeholder="Contoh: 192.168.1.1">
+                <button class="paste-btn" data-target="decimal-input" title="Paste dari clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"></path><path d="M15 4H9C8.448 4 8 4.448 8 5v5h2V6h4v4h2V5c0-.552-.448-1-1-1z"></path></svg>
+                </button>
+            </div>
+            <button id="to-binary-btn">Konversi ke Biner</button>
+            <div class="output-wrapper">
+                <div class="result-box" id="binary-output"></div>
+                <button class="copy-btn" data-target="binary-output" title="Salin hasil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2H10V4h10v10z"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Biner ke Desimal -->
+        <div class="converter-card">
+            <h2>Biner ke Desimal</h2>
+            <div class="input-wrapper">
+                <input type="text" id="binary-input" placeholder="Contoh: 11000000.10101000.00000001.00000001">
+                 <button class="paste-btn" data-target="binary-input" title="Paste dari clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"></path><path d="M15 4H9C8.448 4 8 4.448 8 5v5h2V6h4v4h2V5c0-.552-.448-1-1-1z"></path></svg>
+                </button>
+            </div>
+            <button id="to-decimal-btn">Konversi ke Desimal</button>
+            <div class="output-wrapper">
+                <div class="result-box" id="decimal-output"></div>
+                 <button class="copy-btn" data-target="decimal-output" title="Salin hasil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2H10V4h10v10z"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Klasifikasi IP -->
+        <div class="classifier-card">
+            <h2>Klasifikasi Kelas IP</h2>
+            <div class="input-wrapper">
+                <input type="text" id="classify-input" placeholder="Masukkan IP Desimal">
+                 <button class="paste-btn" data-target="classify-input" title="Paste dari clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"></path><path d="M15 4H9C8.448 4 8 4.448 8 5v5h2V6h4v4h2V5c0-.552-.448-1-1-1z"></path></svg>
+                </button>
+            </div>
+            <button id="classify-btn">Cek Kelas</button>
+            <div class="output-wrapper">
+                <div class="result-box" id="class-output"></div>
+                 <button class="copy-btn" data-target="class-output" title="Salin hasil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2H10V4h10v10z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>dibuat oleh Rickthor7</p>
+    </footer>
+
+    <script>
+        // --- JavaScript Code Starts Here ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const toBinaryBtn = document.getElementById('to-binary-btn');
+            const decimalInput = document.getElementById('decimal-input');
+            const binaryOutput = document.getElementById('binary-output');
+
+            const toDecimalBtn = document.getElementById('to-decimal-btn');
+            const binaryInput = document.getElementById('binary-input');
+            const decimalOutput = document.getElementById('decimal-output');
+
+            const classifyBtn = document.getElementById('classify-btn');
+            const classifyInput = document.getElementById('classify-input');
+            const classOutput = document.getElementById('class-output');
+            
+            // Fungsi untuk menampilkan hasil
+            function displayResult(element, message, isError = false) {
+                const copyBtn = element.nextElementSibling;
+                element.textContent = message;
+                element.className = 'result-box';
+                
+                if (isError) {
+                    element.classList.add('error');
+                    copyBtn.classList.remove('visible');
+                } else {
+                    copyBtn.classList.add('visible');
+                }
+            }
+
+            // Logika untuk tombol PASTE
+            document.querySelectorAll('.paste-btn').forEach(button => {
+                button.addEventListener('click', async () => {
+                    try {
+                        const text = await navigator.clipboard.readText();
+                        const targetInput = document.getElementById(button.dataset.target);
+                        targetInput.value = text;
+                    } catch (err) {
+                        console.error('Gagal membaca clipboard: ', err);
+                        // Mungkin perlu menampilkan pesan error kepada user di sini
+                    }
+                });
+            });
+
+            // Logika untuk tombol COPY
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetOutput = document.getElementById(button.dataset.target);
+                    const textToCopy = targetOutput.textContent;
+
+                    if (textToCopy) {
+                        // Menggunakan metode yang lebih kompatibel
+                        const textArea = document.createElement('textarea');
+                        textArea.value = textToCopy;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        // Tampilkan feedback visual
+                        button.classList.add('copied');
+                        setTimeout(() => {
+                            button.classList.remove('copied');
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Konversi Desimal ke Biner
+            toBinaryBtn.addEventListener('click', () => {
+                const ip = decimalInput.value.trim();
+                const octets = ip.split('.');
+
+                if (octets.length !== 4 || octets.some(octet => isNaN(octet) || octet < 0 || octet > 255 || octet === '')) {
+                    displayResult(binaryOutput, 'Format IP Desimal tidak valid!', true);
+                    return;
+                }
+
+                const binaryIP = octets.map(octet => parseInt(octet).toString(2).padStart(8, '0')).join('.');
+                displayResult(binaryOutput, binaryIP);
+            });
+
+            // Konversi Biner ke Desimal
+            toDecimalBtn.addEventListener('click', () => {
+                const ip = binaryInput.value.trim();
+                const octets = ip.split('.');
+
+                if (octets.length !== 4 || octets.some(octet => !/^[01]{8}$/.test(octet))) {
+                    displayResult(decimalOutput, 'Format IP Biner tidak valid!', true);
+                    return;
+                }
+
+                const decimalIP = octets.map(octet => parseInt(octet, 2)).join('.');
+                displayResult(decimalOutput, decimalIP);
+            });
+
+            // Klasifikasi Kelas IP
+            classifyBtn.addEventListener('click', () => {
+                const ip = classifyInput.value.trim();
+                const octets = ip.split('.');
+
+                if (octets.length !== 4 || octets.some(octet => isNaN(octet) || octet < 0 || octet > 255 || octet === '')) {
+                    displayResult(classOutput, 'Format IP Desimal tidak valid!', true);
+                    return;
+                }
+
+                const firstOctet = parseInt(octets[0]);
+                let ipClass = '';
+                let range = '';
+
+                if (firstOctet >= 1 && firstOctet <= 127) {
+                    ipClass = 'A';
+                    range = '(1.0.0.0 - 127.255.255.255)';
+                } else if (firstOctet >= 128 && firstOctet <= 191) {
+                    ipClass = 'B';
+                    range = '(128.0.0.0 - 191.255.255.255)';
+                } else if (firstOctet >= 192 && firstOctet <= 223) {
+                    ipClass = 'C';
+                    range = '(192.0.0.0 - 223.255.255.255)';
+                } else if (firstOctet >= 224 && firstOctet <= 239) {
+                    ipClass = 'D (Multicast)';
+                    range = 'Tidak untuk penggunaan umum.';
+                } else if (firstOctet >= 240 && firstOctet <= 255) {
+                    ipClass = 'E (Eksperimental)';
+                    range = 'Tidak untuk penggunaan umum.';
+                } else {
+                    ipClass = 'Tidak Terdefinisi';
+                    range = 'Alamat IP ini tidak valid atau dicadangkan.';
+                }
+
+                displayResult(classOutput, `Kelas ${ipClass} ${range}`);
+            });
+        });
+        // --- JavaScript Code Ends Here ---
+    </script>
+</body>
+</html>
+
+  
